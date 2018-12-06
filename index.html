@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
     <title>Pakketrace.nl</title>
 </head>
 <body>
     <canvas id="canvas"></canvas>
+    
+    <script>
+        WebFont.load({
+            custom:{
+                families: ["Supersonic Rocketship"]
+            }
+        });
+    </script>
 
     <script src="./build/app.js"></script>
-    <script src="./assets/scripts/main.js"</script>
-    <script src="./assets/framework/phaser.js"</script>
+    <script src="./assets/framework/phaser.js"></script>
+    <script src="./assets/scripts/main.js"></script>
+
 </body>
 </html>
