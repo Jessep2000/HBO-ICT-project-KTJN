@@ -1,6 +1,6 @@
 # Project Gamedevelopment #
 ### Build an amazing game with nice people :^) ###
-(Version of game after sprint 0)
+(Version of game after sprint 1)
 
 ## Version notation: ##
 V x . y . z <br>
