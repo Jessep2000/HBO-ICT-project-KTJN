@@ -1,4 +1,4 @@
-class Bus extends Entity
+class Bus
 {
     
 }
