@@ -7,3 +7,12 @@ canvas {
     margin: 0;
     padding: 0;
 }
+
+/*If the screensize is smaller then the minimal allowed size (1280x720 [720p]),
+the game will not be loaded*/
+@media screen and (minwidth: 1280px) {
+    canvas {
+        width: 0;
+        height: 0;
+    }
+}
