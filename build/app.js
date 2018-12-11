@@ -1,23 +1,31 @@
 class Canvas {
     constructor(canvasId) {
-        this.canvas = canvasId;
         this.canvas.width = 1280;
         this.canvas.height = 720;
+        this.canvas = canvasId;
         this.canvas.getContext("2d");
+    }
+    writeTextToCanvas(text, fontSize, xPos, yPos, color = "white", alignment = "center") {
+        this.ctx.font = `${fontSize}px Supersonic Rocketship`;
+        this.ctx.fillStyle = color;
+        this.ctx.textAlign = alignment;
+        this.ctx.fillText(text, xPos, yPos);
     }
 }
 class Game {
     constructor() {
         const canvasElement = document.getElementById("canvas");
         this._canvas = new Canvas(canvasElement);
+        this._timer = new Timer(1, 0);
+    }
+    draw() {
+        this._timer.updateTimer();
     }
 }
 let init = function () {
     const Deliveration = new Game();
 };
 window.addEventListener("load", init);
-class Timer {
-}
 class Level {
     constructor(size, lvlInfo, canvas) {
         console.error('canvas live');
@@ -98,6 +106,28 @@ var level1 = [
 ];
 var level = new Level(5, level1, canvas);
 level.writeLevel();
+class Timer {
+    constructor(mins, secs) {
+        this.element = document.getElementById("canvas");
+        this.endTime = (+new Date) + 1000 * (60 * this._minutes + this._seconds) + 500;
+    }
+    twoDigits(n) {
+        return (n <= 9 ? "0" + n : n);
+    }
+    ;
+    updateTimer() {
+        this._msLeft = this._endTime - (+new Date);
+        if (this._msLeft < 1000) {
+            this._element.writeTextToCanvas("Time's up", 20, 50, 50, "black");
+        }
+        else {
+            this._time = new Date(this._msLeft);
+            this._minutes = this._time.getUTCMinutes();
+            this._seconds = this._time.getUTCSeconds();
+            setTimeout(this.updateTimer, this._time.getUTCMiliseconds() + 500);
+        }
+    }
+}
 class Bus {
 }
 class Entity {

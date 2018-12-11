@@ -10,6 +10,10 @@ class Game
         
         this._timer = new Timer(1, 0);
     }
+
+    public draw(): void {
+        this._timer.updateTimer()
+    }
 }
 
 let init = function() {

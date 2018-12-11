@@ -5,10 +5,10 @@ class Canvas
     
     public constructor(canvasId: HTMLCanvasElement)
     {
-        this.canvas = canvasId;
         this.canvas.width = 1280;
         this.canvas.height = 720;
-
+        
+        this.canvas = canvasId;
         this.canvas.getContext("2d");
     }
 

@@ -30,8 +30,8 @@ class Timer
             setTimeout(this.updateTimer, this._time.getUTCMiliseconds() + 500 );
         }
     }
-
+    
     element = document.getElementById("canvas");
     endTime = (+new Date) + 1000 * (60*this._minutes + this._seconds) + 500;
-    //TODO: call the updateTimer() method here {ISN'T WORKING YET}
+    //TODO add updateTimer()
 }
