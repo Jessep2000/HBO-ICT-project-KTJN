@@ -16,7 +16,8 @@ let init = function () {
     const Deliveration = new Game();
 };
 window.addEventListener("load", init);
-class Timer {}
+class Timer {
+}
 class Level {
     constructor(size, lvlInfo, canvas) {
         console.error('canvas live');
@@ -28,30 +29,26 @@ class Level {
     writeTileToCanvas(src, x, y) {
         var img = new Image();
         img.src = src;
-        console.log(img);
         img.addEventListener('load', () => {
             this.ctx.drawImage(img, x, y);
-        })
+        });
     }
     writeLevel() {
+        console.log('this');
         var tileXpos = 0;
         var tileYpos = 0;
         var tilecounter = 0;
-        for (let i = this.levelInfo.length; i > 0; i--) {
+        for (let i = this.levelInfo.length; i >= 0; i--) {
             let imgstring = './assets/images/roads/';
             let testString = this.levelInfo[i - 1];
-            console.log(this.levelInfo[i - 1])
-            // if (testString.includes('0_')) {
-            //     imgstring = imgstring + 'empty/';
-            // }
-            console.log('stap 1')
-            if (testString.includes('1_')) {
+            console.log(testString);
+            if (testString.includes('1')) {
                 imgstring = imgstring + 'house_normal/';
             }
-            if (testString.includes('2_')) {
+            if (testString.includes('2')) {
                 imgstring = imgstring + 'house_double/';
             }
-            if (testString.includes('3_')) {
+            if (testString.includes('3')) {
                 imgstring = imgstring + 'house_hp/';
             }
             if (testString.includes('x_split')) {
@@ -79,12 +76,12 @@ class Level {
                 imgstring = imgstring + 'turn.png';
             }
             this.writeTileToCanvas(imgstring, tileXpos, tileYpos);
-            console.log(imgstring);
-            if (tilecounter >= this.size) {
+            if (tilecounter >= 5) {
                 tileYpos = +50;
                 tileYpos = 0;
                 tilecounter = 0;
-            } else {
+            }
+            else {
                 tileXpos = +50;
                 tilecounter++;
             }
@@ -95,12 +92,14 @@ const canvas = document.getElementById('canvas');
 var level1 = [
     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-    '1_90_turn', '1_90_turn', '1_90_straight', '1_90_turn', '1_90_turn',
+    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn'
 ];
 var level = new Level(5, level1, canvas);
 level.writeLevel();
-class Bus {}
-class Entity {}
+class Bus {
+}
+class Entity {
+}
 //# sourceMappingURL=app.js.map

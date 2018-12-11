@@ -16,8 +16,10 @@ class Level {
     public writeTileToCanvas(src: string, x: number, y: number) {
         var img = new Image()
         img.src = src;
+        img.addEventListener('load', () => {
+            this.ctx.drawImage(img, x, y)
+        })
 
-        this.ctx.drawImage(img, x, y)
     }
 
     public writeLevel() {
@@ -26,11 +28,12 @@ class Level {
         var tileYpos = 0;
         var tilecounter = 0;
         for (let i = this.levelInfo.length; i >= 0; i--) {
-            let imgstring = '../assets/images/roads/'
-            let testString = this.levelInfo[i];
-            if (testString.includes('0')) {
-                imgstring = imgstring + 'empty/'
-            }
+            let imgstring = './assets/images/roads/'
+            let testString = this.levelInfo[i-1];
+            console.log(testString);
+            // if (testString.includes('0')) {
+            //     imgstring = imgstring + 'empty/'
+            // }
             if (testString.includes('1')) {
                 imgstring = imgstring + 'house_normal/'
             }
@@ -43,7 +46,7 @@ class Level {
             if (testString.includes('x_split')) {
                 imgstring = imgstring + 'X-split.png'
             }
-            if (testString.includes('0')) {
+            if (testString.includes('_0_')) {
                 imgstring = imgstring + '0/'
             }
             if (testString.includes('90')) {
