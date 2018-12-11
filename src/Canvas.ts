@@ -11,4 +11,13 @@ class Canvas
 
         this.canvas.getContext("2d");
     }
+
+    public drawTextToCanvas(
+        text: string,
+        fontSize: number,
+        xPos: number,
+        yPos: null
+    ): void {
+
+    }
 }
