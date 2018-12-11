@@ -7,12 +7,6 @@ class Game
     {
         const canvasElement: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
         this._canvas = new Canvas(canvasElement);
-        
-        this._timer = new Timer(1, 0);
-    }
-
-    public draw(): void {
-        this._timer.updateTimer()
     }
 }
 
