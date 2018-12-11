@@ -21,7 +21,7 @@ class Timer
     public updateTimer(): void {
         this._msLeft = this._endTime - (+new Date);
         if (this._msLeft < 1000) {
-            this._canvas.drawTextToCanvas("Time's up")
+            // this._canvas.drawTextToCanvas("Time's up")
         }
     }
 }

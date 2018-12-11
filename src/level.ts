@@ -13,34 +13,35 @@ class Level {
         this.ctx = this.canvas.getContext('2d');
     }
 
-    public writeTileToCanvas(src: string, x: number, y: number) {
+    public writeTileToCanvas(src: string, xpos: number, ypos: number) {
         var img = new Image()
         img.src = src;
         img.addEventListener('load', () => {
-            this.ctx.drawImage(img, x, y)
+            this.ctx.drawImage(img, xpos, ypos)
         })
-
     }
 
     public writeLevel() {
-        console.log('this')
         var tileXpos = 0;
         var tileYpos = 0;
         var tilecounter = 0;
-        for (let i = this.levelInfo.length; i >= 0; i--) {
+        for (let i = 0; i < this.levelInfo.length; i++) {
             let imgstring = './assets/images/roads/'
-            let testString = this.levelInfo[i-1];
-            console.log(testString);
-            // if (testString.includes('0')) {
-            //     imgstring = imgstring + 'empty/'
-            // }
-            if (testString.includes('1')) {
+            let testString = this.levelInfo[i];
+            if(testString.includes('grass')){
+                imgstring = imgstring + 'grass.png';
+            }
+            if (testString.includes('1_')) {
+                imgstring = imgstring + 'empty/'
+            }
+
+            if (testString.includes('2_')) {
                 imgstring = imgstring + 'house_normal/'
             }
-            if (testString.includes('2')) {
+            if (testString.includes('3_')) {
                 imgstring = imgstring + 'house_double/'
             }
-            if (testString.includes('3')) {
+            if (testString.includes('4_')) {
                 imgstring = imgstring + 'house_hp/'
             }
             if (testString.includes('x_split')) {
@@ -68,29 +69,30 @@ class Level {
                 imgstring = imgstring + 'turn.png'
             }
             this.writeTileToCanvas(imgstring, tileXpos, tileYpos);
-            if (tilecounter >= 5) {
-                tileYpos = + 50;
-                tileYpos = 0;
+            if (tilecounter >= 4) {
+                tileYpos = tileYpos + 129;
+                tileXpos = 0;
                 tilecounter = 0;
             } else {
-                tileXpos = + 50;
+                tileXpos = tileXpos + 129;
                 tilecounter++;
             }
+            console.log(tileYpos, tileXpos);
+            console.log(tilecounter)
         }
     }
 }
 
-const canvas = <HTMLCanvasElement>document.getElementById('canvas');
 
-var level1: Array<string> = [
-    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn'
-]
-var level: Level = new Level(5, level1, canvas)
+// const canvas = <HTMLCanvasElement>document.getElementById('canvas');
 
-level.writeLevel();
+// var level1: Array<string> = [
+//     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+//     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+//     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+//     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+//     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn'
+// ]
+// var level: Level = new Level(5, level1, canvas)
 
-
+// level.writeLevel();
