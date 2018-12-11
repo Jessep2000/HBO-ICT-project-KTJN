@@ -7,8 +7,6 @@ class Game {
     public constructor() {
         const canvasElement: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
         this._canvas = new Canvas(canvasElement);
-
-        this._timer = new Timer(1, 0);
     }
 }
 

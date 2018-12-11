@@ -1,8 +1,8 @@
 class Canvas {
     constructor(canvasId) {
-        this.canvas = canvasId;
         this.canvas.width = 1280;
         this.canvas.height = 720;
+        this.canvas = canvasId;
         this.canvas.getContext("2d");
     }
     drawTextToCanvas(text, fontSize, xPos, yPos) {
@@ -105,19 +105,17 @@ let init = function () {
 };
 window.addEventListener("load", init);
 const canvas = document.getElementById('canvas');
-class Timer {
-    constructor(min, sec) {
-    }
-    twoDigits(n) {
-        return (n <= 9 ? "0" + n : n);
-    }
-    ;
-    updateTimer() {
-        this._msLeft = this._endTime - (+new Date);
-        if (this._msLeft < 1000) {
-        }
-    }
-}
+
+var level1 = [
+    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn'
+];
+var level = new Level(5, level1, canvas);
+level.writeLevel();
+
 class Bus {
 }
 class Entity {
