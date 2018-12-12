@@ -4,13 +4,25 @@ class Level {
     public size: number;
     public canvas: HTMLCanvasElement;
     public ctx: CanvasRenderingContext2D;
+    public anchorPointX: Array<number> = []
+    public anchorPointY: Array<number> = []
 
     constructor(size: number, lvlInfo: Array<string>, canvas: HTMLCanvasElement) {
-        console.error('canvas live');
         this.size = size
         this.levelInfo = lvlInfo
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
+        this.canvas.addEventListener('click', (event) => {
+            this.checkClick(event.screenX, event.screenY)
+        })
+    }
+
+    public init(){
+        if(this.levelInfo.length !== (this.size * this.size)){
+            console.error('array "levelInfo" is not of proper size. check syntax when creating object "Level"')
+        } else {
+            this.writeLevel();
+        }
     }
 
     public writeTileToCanvas(src: string, xpos: number, ypos: number) {
@@ -25,16 +37,15 @@ class Level {
         var tileXpos = 0;
         var tileYpos = 0;
         var tilecounter = 0;
-        for (let i = 0; i < this.levelInfo.length; i++) {
+        for (let i = 0; i < this.size * this.size; i++) {
             let imgstring = './assets/images/roads/'
             let testString = this.levelInfo[i];
-            if(testString.includes('grass')){
+            if (testString.includes('grass')) {
                 imgstring = imgstring + 'grass.png';
             }
             if (testString.includes('1_')) {
                 imgstring = imgstring + 'empty/'
             }
-
             if (testString.includes('2_')) {
                 imgstring = imgstring + 'house_normal/'
             }
@@ -68,8 +79,12 @@ class Level {
             if (testString.includes('turn')) {
                 imgstring = imgstring + 'turn.png'
             }
+            if (testString.includes('dead')) {
+                imgstring = imgstring + 'deadend.png'
+            }
             this.writeTileToCanvas(imgstring, tileXpos, tileYpos);
-            if (tilecounter >= 4) {
+            this.getHitBoxes(tileXpos, tileYpos)
+            if (tilecounter >= this.size - 1) {
                 tileYpos = tileYpos + 129;
                 tileXpos = 0;
                 tilecounter = 0;
@@ -79,6 +94,24 @@ class Level {
             }
             console.log(tileYpos, tileXpos);
             console.log(tilecounter)
+            console.log(imgstring)
+        }
+    }
+
+    public getHitBoxes(xPos: number, yPos: number) {
+        this.anchorPointX.push(xPos + 64);
+        this.anchorPointY.push(yPos + 64);
+        console.log(this.anchorPointX, this.anchorPointY)
+    }
+
+
+    public checkClick(X: number, Y: number) {
+        for (let i = 0; i < this.levelInfo.length; i++) {
+            if (X > this.anchorPointX[i] - 20 && X < this.anchorPointX[i] + 20) {
+                if (Y > this.anchorPointY[i] + 44 && Y < this.anchorPointY[i] + 84) {
+                    console.log(i);
+                }
+            }
         }
     }
 }
@@ -95,4 +128,4 @@ class Level {
 // ]
 // var level: Level = new Level(5, level1, canvas)
 
-// level.writeLevel();
+// level.writeLevel()
