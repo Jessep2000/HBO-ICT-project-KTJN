@@ -8,6 +8,11 @@ canvas {
     padding: 0;
 }
 
+@font-face {
+    font-family: "Supersonic Rocketship";
+    src: url("../fonts/Supersonic\ Rocketship.ttf") format("truetype");
+}
+
 /*If the screensize is smaller then the minimal allowed size (1280x720 [720p]),
 the game will not be loaded*/
 @media screen and (minwidth: 1280px) {
