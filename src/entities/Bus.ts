@@ -1,5 +1,6 @@
 class Bus
 {
+    
     public canvas: Canvas;
     public imageSrc: string;
     public xPos: number;
@@ -9,5 +10,7 @@ class Bus
         
     }
 
-    
+    public drawBus() {
+        this.canvas.writeImageFromFileToCanvas(this.imageSrc, this.xPos, this.yPos);
+    }
 }
