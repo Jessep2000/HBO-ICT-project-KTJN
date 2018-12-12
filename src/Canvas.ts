@@ -35,4 +35,21 @@ class Canvas
         this.ctx.textAlign = alignment;
         this.ctx.fillText(text, xPos, yPos)
     }
+
+    public writeImageFromFileToCanvas(
+        src: string,
+        xPos: number,
+        yPos: number) {
+
+        let image = new Image();
+        // add the listener so the waiting will not affect the change
+        image.addEventListener('load', () => {
+            //this.context.clip();
+            this.ctx.drawImage(image, xPos, yPos);
+        });
+
+        // load the source in the image.
+        image.src = src;
+    }
+
 }
