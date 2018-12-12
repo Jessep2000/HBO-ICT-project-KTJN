@@ -5,16 +5,39 @@ class Canvas {
         this.canvas = canvasId;
         this.canvas.getContext("2d");
     }
-    drawTextToCanvas(text, fontSize, xPos, yPos) {
+    writeTextToCanvas(text, fontSize, xPos, yPos, color = "white", alignment = "center") {
+        this.ctx.font = `${fontSize}px Supersonic Rocketship`;
+        this.ctx.fillStyle = color;
+        this.ctx.textAlign = alignment;
+        this.ctx.fillText(text, xPos, yPos);
+    }
+    writeImageFromFileToCanvas(src, xPos, yPos) {
+        let image = new Image();
+        image.addEventListener('load', () => {
+            this.ctx.drawImage(image, xPos, yPos);
+        });
+        image.src = src;
     }
 }
 class Level {
     constructor(size, lvlInfo, canvas) {
-        console.error('canvas live');
+        this.anchorPointX = [];
+        this.anchorPointY = [];
         this.size = size;
         this.levelInfo = lvlInfo;
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
+        this.canvas.addEventListener('click', (event) => {
+            this.checkClick(event.screenX, event.screenY);
+        });
+    }
+    init() {
+        if (this.levelInfo.length !== (this.size * this.size)) {
+            console.error('array "levelInfo" is not of proper size. check syntax when creating object "Level"');
+        }
+        else {
+            this.writeLevel();
+        }
     }
     writeTileToCanvas(src, xpos, ypos) {
         var img = new Image();
@@ -27,8 +50,8 @@ class Level {
         var tileXpos = 0;
         var tileYpos = 0;
         var tilecounter = 0;
-        for (let i = 0; i < this.levelInfo.length; i++) {
-            let imgstring = './assets/images/roads/';
+        for (let i = 0; i < this.size * this.size; i++) {
+            let imgstring = './assets/images/road_tile/';
             let testString = this.levelInfo[i];
             if (testString.includes('grass')) {
                 imgstring = imgstring + 'grass.png';
@@ -69,8 +92,12 @@ class Level {
             if (testString.includes('turn')) {
                 imgstring = imgstring + 'turn.png';
             }
+            if (testString.includes('dead')) {
+                imgstring = imgstring + 'deadend.png';
+            }
             this.writeTileToCanvas(imgstring, tileXpos, tileYpos);
-            if (tilecounter >= 4) {
+            this.getHitBoxes(tileXpos, tileYpos);
+            if (tilecounter >= this.size - 1) {
                 tileYpos = tileYpos + 129;
                 tileXpos = 0;
                 tilecounter = 0;
@@ -81,6 +108,21 @@ class Level {
             }
             console.log(tileYpos, tileXpos);
             console.log(tilecounter);
+            console.log(imgstring);
+        }
+    }
+    getHitBoxes(xPos, yPos) {
+        this.anchorPointX.push(xPos + 64);
+        this.anchorPointY.push(yPos + 64);
+        console.log(this.anchorPointX, this.anchorPointY);
+    }
+    checkClick(X, Y) {
+        for (let i = 0; i < this.levelInfo.length; i++) {
+            if (X > this.anchorPointX[i] - 20 && X < this.anchorPointX[i] + 20) {
+                if (Y > this.anchorPointY[i] + 44 && Y < this.anchorPointY[i] + 84) {
+                    console.log(i);
+                }
+            }
         }
     }
 }
@@ -88,35 +130,51 @@ class Game {
     constructor() {
         const canvasElement = document.getElementById("canvas");
         this._canvas = new Canvas(canvasElement);
-        this._timer = new Timer(1, 0);
     }
 }
 let init = function () {
     var level1 = [
         '3_270_t_split', 'grass', '2_0_turn', '2_0_straight', '2_90_turn',
         '2_90_turn', '2_0_straight', '4_x_split', '2_90_turn', '2_90_turn',
-        '1_90_turn', '1_90_turn', '4_270_t_split', '1_90_turn', '1_90_turn',
-        '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-        '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn'
+        '2_90_turn', '2_90_turn', '4_270_t_split', '2_90_turn', '2_90_turn',
+        '2_90_turn', '2_90_turn', 'grass', '2_x_split', '2_90_turn',
+        '2_90_turn', '2_90_turn', '2_90_turn', '2_90_turn', '3_90_straight'
     ];
-    var level = new Level(5, level1, canvas);
-    level.writeLevel();
-    const Deliveration = new Game();
+    var Loadlevel1 = new Level(5, level1, canvas);
+    Loadlevel1.init();
 };
 window.addEventListener("load", init);
 const canvas = document.getElementById('canvas');
-
-var level1 = [
-    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-    '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn'
-];
-var level = new Level(5, level1, canvas);
-level.writeLevel();
-
+class Highscores {
+    constructor(canvasId, playerName, score) {
+        this.canvas = canvasId;
+        this.playerName = playerName;
+        this.score = score;
+        this.highscores = [
+            {
+                playerName: 'Kevin',
+                score: 60
+            },
+            {
+                playerName: 'Jesse',
+                score: 50
+            },
+            {
+                playerName: 'Tijs',
+                score: 40
+            },
+            {
+                playerName: 'Nick',
+                score: 20
+            }
+        ];
+    }
+}
+class Timer {
+}
 class Bus {
+    constructor(canvas, imageSrc, xPos, yPos) {
+    }
 }
 class Entity {
 }

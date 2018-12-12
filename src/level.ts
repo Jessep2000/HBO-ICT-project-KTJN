@@ -38,7 +38,7 @@ class Level {
         var tileYpos = 0;
         var tilecounter = 0;
         for (let i = 0; i < this.size * this.size; i++) {
-            let imgstring = './assets/images/roads/'
+            let imgstring = './assets/images/road_tile/'
             let testString = this.levelInfo[i];
             if (testString.includes('grass')) {
                 imgstring = imgstring + 'grass.png';
