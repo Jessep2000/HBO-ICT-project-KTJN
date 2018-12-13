@@ -1,5 +1,5 @@
 # Project Gamedevelopment #
-### Build an amazing game with nice people :^) ###
+### This is the new, refactored code of the educative game 'DeliverRace' ###
 
 ## Version notation: ##
 V x . y . z <br>
