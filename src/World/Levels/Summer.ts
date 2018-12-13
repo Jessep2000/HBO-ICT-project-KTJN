@@ -1,4 +1,0 @@
-class Summer extends Overworld
-{
-    
-}
