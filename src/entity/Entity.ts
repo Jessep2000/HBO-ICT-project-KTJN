@@ -17,6 +17,7 @@ class Entity
         // this._canvas = canvas
     }
 
+    //Draw bus
     public drawBus(): void {
         //this._canvas.writeImageToCanvas(/*TODO: add missing arguments*/)
     }

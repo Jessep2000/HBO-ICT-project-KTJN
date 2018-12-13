@@ -79,13 +79,15 @@ class Canvas {
 
         image.src = src;
     }
-    //--------------------------------------------------
+
+    //--------------------------------------------------------------------------------------------------------------------------------------
     private levelInfo: Array<string>;
     private size: number;
     private anchorPointX: Array<number> = []
     private anchorPointY: Array<number> = []
     private anchorPointGetPos: Boolean;
 
+    //Initialize the canvas
     public init() {
         if (this.levelInfo.length !== (this.size * this.size)) {
             console.error('array "levelInfo" is not of proper size. Check syntax when creating object "level"')
@@ -94,6 +96,7 @@ class Canvas {
         }
     }
 
+    //Draw level to canvas
     public writeLevel() {
         let tileXpos = 0;
         let tileYpos = 0;
@@ -164,14 +167,27 @@ class Canvas {
         }
     }
 
-    public writeTileToCanvas(src: string, xpos: number, ypos: number) {
+    /**
+     * writeTileToCanvas
+     * @accessModifier {public}
+     * @param {string} src -
+     * @param {number} xPos -
+     * @param {number} yPos -
+     */
+    public writeTileToCanvas(src: string, xPos: number, yPos: number) {
         var img = new Image()
         img.src = src;
         img.addEventListener('load', () => {
-            this.ctx.drawImage(img, xpos, ypos)
+            this.ctx.drawImage(img, xPos, yPos)
         })
     }
 
+    /**
+     * getHitBoxes
+     * @accessModifier {public}
+     * @param {number} xPos -
+     * @param {number} yPos -
+     */
     public getHitBoxes(xPos: number, yPos: number) {
         this.anchorPointX.push(xPos);
         this.anchorPointY.push(yPos);
@@ -180,6 +196,12 @@ class Canvas {
         console.log(this.anchorPointX, this.anchorPointY)
     }
 
+    /**
+     * checkClick
+     * @accessModifier {public}
+     * @param {number} X -
+     * @param {number} Y -
+     */
     public checkClick(X: number, Y: number) {
         for (let i = 0; i < this.anchorPointX.length; i++) {
             if (X > this.anchorPointX[i] && X < this.anchorPointX[i] + 129 && Y > this.anchorPointY[i] && Y < this.anchorPointY[i] + 129) {

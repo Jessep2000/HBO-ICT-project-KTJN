@@ -13,6 +13,7 @@ class Game {
         console.error("TEST")
     }
 
+    //Draw Canvas
     public draw() {
         this._canvas.init();
         // this._canvas.writeTextToCanvas("HI", 30, this._canvas.getHorizontalCenter(), this._canvas.getVerticalCenter(), "black", "center")

@@ -1,5 +1,6 @@
 class Levels
 {
+    //Test level
     public test: Array<string> = [
         '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
         '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
@@ -8,6 +9,7 @@ class Levels
         '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn'
     ]
 
+    //World 1, Level 1
     public level1_1: Array<string> = [
         '1_0_straight', '1_0_t_split', '2_0_t_split', '2_0_straight', '1_270_turn',
         'grass', '1_90_t_split', '1_x_split', '2_0_t_split', '2_180_turn',
@@ -16,6 +18,7 @@ class Levels
         '1_90_turn', '2_180_t_split', '1_180_turn', '2_90_turn', '2_180_turn'
     ]
 
+    //World 1, Level 2
     public level1_2: Array<string> = [
         '1_0_t_split', '1_0_t_split', '2_0_t_split', '2_0_straight', '1_270_turn',
         '1_90_straight', '1_90_t_split', '1_x_split', '2_0_t_split', '2_270_t_split',
