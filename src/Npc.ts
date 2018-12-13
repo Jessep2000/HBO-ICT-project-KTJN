@@ -1,4 +1,0 @@
-class NPC extends Entity
-{
-    
-}
