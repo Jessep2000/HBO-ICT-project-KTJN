@@ -1,5 +1,6 @@
 * {
     margin: 0;
+    overflow: hidden;
 }
 
 .display_container {
@@ -12,17 +13,23 @@
 }
 
 .left_side, .right_side {
-    flex: 0.9;
+    flex: 0.5;
     background-color: skyblue;
+    padding: 10px;
 }
 
 .game_box {
-    flex: 1.15;
+    flex: 1.30;
 }
 
 canvas {
     margin: 0;
-    padding: 0;
+    width: 60vw;
+    height: 110vh;
+    /*
+    width: 108.5%;
+    height: 86%;
+    */
 }
 
 p {

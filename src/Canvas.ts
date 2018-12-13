@@ -4,8 +4,8 @@ class Canvas {
 
     public constructor(size: number, lvlInfo: Array<string>, canvas: HTMLCanvasElement) {
         this.canvas = canvas;
-        this.canvas.width = 700;
-        this.canvas.height = 700;
+        this.canvas.width = 800;
+        this.canvas.height = 800;
 
         this.ctx = this.canvas.getContext("2d");
 
