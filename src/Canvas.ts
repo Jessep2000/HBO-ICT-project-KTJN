@@ -71,5 +71,4 @@ class Canvas
 
         image.src = src;
     }
-
 }
