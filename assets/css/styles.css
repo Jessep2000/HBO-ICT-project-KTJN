@@ -24,8 +24,9 @@
 
 canvas {
     margin: 0;
-    width: 60vw;
-    height: 110vh;
+    padding: 0;
+    width: 68vw;
+    height: 125vh;
     /*
     width: 108.5%;
     height: 86%;

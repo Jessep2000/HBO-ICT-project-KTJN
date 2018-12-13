@@ -3,12 +3,10 @@ class Game {
     private _levels: Levels;
     // private _bus: Bus;
 
-
-
     public constructor() {
         const canvasElement: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
         this._levels = new Levels
-        this._canvas = new Canvas(5,this._levels.level1 , canvasElement);
+        this._canvas = new Canvas(5,this._levels.level1_1, canvasElement);
         // this._bus = new Bus();
         this.draw()
 

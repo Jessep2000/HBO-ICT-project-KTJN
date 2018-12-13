@@ -3,8 +3,8 @@ class Canvas {
         this.anchorPointX = [];
         this.anchorPointY = [];
         this.canvas = canvas;
-        this.canvas.width = 700;
-        this.canvas.height = 700;
+        this.canvas.width = 800;
+        this.canvas.height = 800;
         this.ctx = this.canvas.getContext("2d");
         this.size = size;
         this.levelInfo = lvlInfo;
@@ -134,7 +134,7 @@ class Game {
     constructor() {
         const canvasElement = document.getElementById("canvas");
         this._levels = new Levels;
-        this._canvas = new Canvas(5, this._levels.level1, canvasElement);
+        this._canvas = new Canvas(5, this._levels.level1_1, canvasElement);
         this.draw();
         console.error("TEST");
     }
@@ -146,17 +146,6 @@ let init = function () {
     const DeliverRace = new Game();
 };
 window.addEventListener("load", init);
-class Levels {
-    constructor() {
-        this.level1 = [
-            '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-            '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-            '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-            '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
-            '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn'
-        ];
-    }
-}
 class Entity {
     constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
         this.imageSource = imgSrc;
@@ -171,6 +160,31 @@ class Entity {
 class Bus extends Entity {
     constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
         super(imgSrc, xCoor, yCoor, width, height, canvas);
+    }
+}
+class Levels {
+    constructor() {
+        this.test = [
+            '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+            '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+            '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+            '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
+            '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn'
+        ];
+        this.level1_1 = [
+            '1_0_straight', '1_0_t_split', '2_0_t_split', '2_0_straight', '1_270_turn',
+            'grass', '1_90_t_split', '1_x_split', '2_0_t_split', '2_180_turn',
+            'grass', '2_90_turn', '2_270_t_split', '2_90_turn', '1_90_deadend',
+            '2_0_turn', '1_0_t_split', '2_x_split', '1_0_t_split', '1_270_turn',
+            '1_90_turn', '2_180_t_split', '1_180_turn', '2_90_turn', '2_180_turn'
+        ];
+        this.level1_2 = [
+            '1_0_t_split', '1_0_t_split', '2_0_t_split', '2_0_straight', '1_270_turn',
+            '1_90_straight', '1_90_t_split', '1_x_split', '2_0_t_split', '2_270_t_split',
+            '1_90_straight', '2_90_turn', '3_x_split', '2_180_turn', '1_90_straight',
+            '2_90_t_split', '1_0_straight', '2_x_split', '1_0_straight', '2_270_t_split',
+            '1_90_turn', '2_0_straight', '1_180_t_split', '3_0_straight', '2_180_turn'
+        ];
     }
 }
 //# sourceMappingURL=app.js.map
