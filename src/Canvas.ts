@@ -6,15 +6,25 @@ class Canvas
     public constructor(canvas: HTMLCanvasElement)
     {
         this.canvas = canvas;
+        this.canvas.width = 700;
+        this.canvas.height = 700;
+
         this.ctx = this.canvas.getContext("2d");
     }
 
-    public getHorizontalCenter(): number {
-        return this.canvas.width / 2;
+    //Get width of canvas
+    public GetWidth(): number {
+        return this.canvas.width
     }
 
-    public getVerticalCenter(): number {
-        return this.canvas.height / 2
+    //Get height of canvas
+    public GetHeight(): number {
+        return this.canvas.height
+    }
+
+    //Get center of canvas
+    public GetCenter(): { X: number, Y: number } {
+        return {X: this.GetWidth() / 2, Y: this.GetHeight() / 2};
     }
 
     /**
@@ -48,7 +58,7 @@ class Canvas
      * @param {number} xPos -
      * @param {number} yPos -
      */
-    public writeImageFromFileToCanvas(
+    public writeImageToCanvas(
         src: string,
         xPos: number,
         yPos: number) {
