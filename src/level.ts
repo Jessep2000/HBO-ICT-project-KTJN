@@ -1,11 +1,12 @@
 class Level {
 
-    public levelInfo: Array<string>;
-    public size: number;
+    protected levelInfo: Array<string>;
+    protected size: number;
     public canvas: HTMLCanvasElement;
     public ctx: CanvasRenderingContext2D;
-    public anchorPointX: Array<number> = []
-    public anchorPointY: Array<number> = []
+    private anchorPointX: Array<number> = []
+    private anchorPointY: Array<number> = []
+    private ancherPointGetPos: Boolean;
 
     constructor(size: number, lvlInfo: Array<string>, canvas: HTMLCanvasElement) {
         this.size = size
@@ -17,8 +18,8 @@ class Level {
         })
     }
 
-    public init(){
-        if(this.levelInfo.length !== (this.size * this.size)){
+    public init() {
+        if (this.levelInfo.length !== (this.size * this.size)) {
             console.error('array "levelInfo" is not of proper size. check syntax when creating object "Level"')
         } else {
             this.writeLevel();
@@ -26,7 +27,7 @@ class Level {
     }
 
     public writeTileToCanvas(src: string, xpos: number, ypos: number) {
-        var img = new Image()
+        let img = new Image()
         img.src = src;
         img.addEventListener('load', () => {
             this.ctx.drawImage(img, xpos, ypos)
@@ -34,14 +35,18 @@ class Level {
     }
 
     public writeLevel() {
-        var tileXpos = 0;
-        var tileYpos = 0;
-        var tilecounter = 0;
+        let tileXpos = 0;
+
+        let tileYpos = 0;
+        let tilecounter = 0;
         for (let i = 0; i < this.size * this.size; i++) {
             let imgstring = './assets/images/road_tile/'
             let testString = this.levelInfo[i];
             if (testString.includes('grass')) {
                 imgstring = imgstring + 'grass.png';
+                this.ancherPointGetPos = false
+            } else {
+                this.ancherPointGetPos = true;
             }
             if (testString.includes('1_')) {
                 imgstring = imgstring + 'empty/'
@@ -82,7 +87,9 @@ class Level {
             if (testString.includes('dead')) {
                 imgstring = imgstring + 'deadend.png'
             }
-            this.writeTileToCanvas(imgstring, tileXpos, tileYpos);
+            if (this.ancherPointGetPos == true) {
+                this.writeTileToCanvas(imgstring, tileXpos, tileYpos);
+            }
             this.getHitBoxes(tileXpos, tileYpos)
             if (tilecounter >= this.size - 1) {
                 tileYpos = tileYpos + 129;
@@ -99,18 +106,20 @@ class Level {
     }
 
     public getHitBoxes(xPos: number, yPos: number) {
-        this.anchorPointX.push(xPos + 64);
-        this.anchorPointY.push(yPos + 64);
+        this.anchorPointX.push(xPos);
+        this.anchorPointY.push(yPos);
+        // this.ctx.fillStyle = '#ffff00';
+        // this.ctx.fillRect(xPos, yPos , 128,128)
         console.log(this.anchorPointX, this.anchorPointY)
     }
 
 
     public checkClick(X: number, Y: number) {
-        for (let i = 0; i < this.levelInfo.length; i++) {
-            if (X > this.anchorPointX[i] - 20 && X < this.anchorPointX[i] + 20) {
-                if (Y > this.anchorPointY[i] + 44 && Y < this.anchorPointY[i] + 84) {
-                    console.log(i);
-                }
+        for (let i = 0; i < this.anchorPointX.length; i++) {
+            if (X > this.anchorPointX[i] && X < this.anchorPointX[i] + 129 && Y > this.anchorPointY[i] && Y < this.anchorPointY[i] + 129) {
+                // if (Y > this.anchorPointY[i] && Y < this.anchorPointY[i] + 129) {
+                console.log(i);
+                // }
             }
         }
     }
@@ -119,13 +128,13 @@ class Level {
 
 // const canvas = <HTMLCanvasElement>document.getElementById('canvas');
 
-// var level1: Array<string> = [
+// let level1: Array<string> = [
 //     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
 //     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
 //     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
 //     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
 //     '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn'
 // ]
-// var level: Level = new Level(5, level1, canvas)
+// let level: Level = new Level(5, level1, canvas)
 
 // level.writeLevel()
