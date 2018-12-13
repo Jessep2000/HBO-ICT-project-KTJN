@@ -1,0 +1,4 @@
+class Winter extends Overworld
+{
+
+}

@@ -1,0 +1,4 @@
+class Autumn extends Overworld
+{
+    
+}
