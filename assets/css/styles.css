@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    overflow: hidden;
+}
+
+.display_container {
+    display: flex;
+}
+
+.display_container div {
+    border: 1px solid black;
+    margin: 0;
+}
+
+.left_side, .right_side {
+    flex: 0.5;
+    background-color: skyblue;
+    padding: 10px;
+}
+
+.game_box {
+    flex: 1.30;
+}
+
+canvas {
+    margin: 0;
+    padding: 0;
+    width: 68vw;
+    height: 125vh;
+    /*
+    width: 108.5%;
+    height: 86%;
+    */
+}
+
+p {
+    font-family: "SSRS";
+    font-size: 35px;
+    padding: 10px;
+}
+
+@font-face {
+    font-family: "SSRS";
+    src: url("../fonts/Supersonic\ Rocketship.ttf") format("truetype");
+}
