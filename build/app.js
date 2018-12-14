@@ -156,6 +156,22 @@ let init = function () {
     const DeliverRace = new Game();
 };
 window.addEventListener("load", init);
+class Entity {
+    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
+        this.imageSource = imgSrc;
+        this.xPos = xCoor;
+        this.yPos = yCoor;
+        this.width = width;
+        this.height = height;
+    }
+    drawBus() {
+    }
+}
+class Bus extends Entity {
+    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
+        super(imgSrc, xCoor, yCoor, width, height, canvas);
+    }
+}
 class Levels {
     constructor() {
         this.test = [
@@ -179,22 +195,6 @@ class Levels {
             '2_90_t_split', '1_0_straight', '2_x_split', '1_0_straight', '2_270_t_split',
             '1_90_turn', '2_0_straight', '1_180_t_split', '3_0_straight', '2_180_turn'
         ];
-    }
-}
-class Entity {
-    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
-        this.imageSource = imgSrc;
-        this.xPos = xCoor;
-        this.yPos = yCoor;
-        this.width = width;
-        this.height = height;
-    }
-    drawBus() {
-    }
-}
-class Bus extends Entity {
-    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
-        super(imgSrc, xCoor, yCoor, width, height, canvas);
     }
 }
 //# sourceMappingURL=app.js.map
