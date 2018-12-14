@@ -1,4 +1,4 @@
-class Levels
+class LevelData
 {
     //Test level
     public test: Array<string> = [
@@ -17,7 +17,6 @@ class Levels
         '2_0_turn', '1_0_t_split', '2_x_split', '1_0_t_split', '1_270_turn',
         '1_90_turn', '2_180_t_split', '1_180_turn', '2_90_turn', '2_180_turn'
     ]
-
     //World 1, Level 2
     public level1_2: Array<string> = [
         '1_0_t_split', '1_0_t_split', '2_0_t_split', '2_0_straight', '1_270_turn',

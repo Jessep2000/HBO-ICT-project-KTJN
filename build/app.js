@@ -1,16 +1,35 @@
 class Canvas {
-    constructor(size, lvlInfo, canvas) {
-        this.anchorPointX = [];
-        this.anchorPointY = [];
+    constructor(canvas) {
         this.canvas = canvas;
         this.canvas.width = 800;
         this.canvas.height = 800;
         this.ctx = this.canvas.getContext("2d");
-        this.size = size;
-        this.levelInfo = lvlInfo;
-        this.canvas.addEventListener('click', (event) => {
-            this.checkClick(event.screenX, event.screenY);
-        });
+        this.game = new Game(canvas);
+    }
+    initGame() {
+        this.game.init();
+    }
+}
+const canvas = document.getElementById('canvas');
+let init = function () {
+    const DeliverRace = new Canvas(canvas);
+};
+window.addEventListener("load", init);
+class Game {
+    constructor(canvas) {
+        this._canvas = canvas;
+        this.levelData = new LevelData;
+        this._levels = new Level(canvas);
+        console.log('game.ts init');
+        this._levels.init(5, this.levelData.level1_1);
+    }
+    init() {
+    }
+}
+class helper {
+    constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
     }
     GetWidth() {
         return this.canvas.width;
@@ -34,7 +53,40 @@ class Canvas {
         });
         image.src = src;
     }
-    init() {
+}
+class Entity {
+    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
+        this.imageSource = imgSrc;
+        this.xPos = xCoor;
+        this.yPos = yCoor;
+        this.width = width;
+        this.height = height;
+    }
+    drawBus() {
+    }
+}
+class Bus extends Entity {
+    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
+        super(imgSrc, xCoor, yCoor, width, height, canvas);
+    }
+    moveBus() {
+    }
+    getCords() {
+    }
+}
+class Level {
+    constructor(canvas) {
+        this.anchorPointX = [];
+        this.anchorPointY = [];
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.canvas.addEventListener('click', (event) => {
+            this.checkClick(event.screenX, event.screenY);
+        });
+    }
+    init(size, lvlInfo) {
+        this.levelInfo = lvlInfo;
+        this.size = size;
         if (this.levelInfo.length !== (this.size * this.size)) {
             console.error('array "levelInfo" is not of proper size. Check syntax when creating object "level"');
         }
@@ -128,44 +180,11 @@ class Canvas {
     checkClick(X, Y) {
         for (let i = 0; i < this.anchorPointX.length; i++) {
             if (X > this.anchorPointX[i] && X < this.anchorPointX[i] + 129 && Y > this.anchorPointY[i] && Y < this.anchorPointY[i] + 129) {
-                console.log(i);
             }
         }
     }
 }
-class Game {
-    constructor() {
-        const canvasElement = document.getElementById("canvas");
-        this._levels = new Levels;
-        this._canvas = new Canvas(5, this._levels.level1_1, canvasElement);
-        this.draw();
-        console.error("TEST");
-    }
-    draw() {
-        this._canvas.init();
-    }
-}
-let init = function () {
-    const DeliverRace = new Game();
-};
-window.addEventListener("load", init);
-class Entity {
-    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
-        this.imageSource = imgSrc;
-        this.xPos = xCoor;
-        this.yPos = yCoor;
-        this.width = width;
-        this.height = height;
-    }
-    drawBus() {
-    }
-}
-class Bus extends Entity {
-    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
-        super(imgSrc, xCoor, yCoor, width, height, canvas);
-    }
-}
-class Levels {
+class LevelData {
     constructor() {
         this.test = [
             '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',

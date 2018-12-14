@@ -6,4 +6,12 @@ class Bus extends Entity
     {
         super(imgSrc, xCoor, yCoor, width, height, canvas)
     }
+
+    public moveBus(){
+        
+    }
+
+    public getCords(){
+        
+    } 
 }
