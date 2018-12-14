@@ -182,14 +182,7 @@ class Canvas {
         img.addEventListener('load', () => {
             this.ctx.drawImage(img, xPos, yPos)
         })
-    }public writeTileToCanvas(src: string, xPos: number, yPos: number) {
-        var img = new Image()
-        img.src = src;
-        img.addEventListener('load', () => {
-            this.ctx.drawImage(img, xPos, yPos)
-        })
     }
-
 
     /**
      * getHitBoxes

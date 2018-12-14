@@ -120,13 +120,6 @@ class Canvas {
             this.ctx.drawImage(img, xPos, yPos);
         });
     }
-    writeTileToCanvas(src, xPos, yPos) {
-        var img = new Image();
-        img.src = src;
-        img.addEventListener('load', () => {
-            this.ctx.drawImage(img, xPos, yPos);
-        });
-    }
     getHitBoxes(xPos, yPos) {
         this.anchorPointX.push(xPos);
         this.anchorPointY.push(yPos);
