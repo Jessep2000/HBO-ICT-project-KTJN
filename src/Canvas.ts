@@ -152,7 +152,7 @@ class Canvas {
             if (this.anchorPointGetPos == true) {
                 this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos);
             }
-            else{this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos)}
+            else {this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos)}
             
             this.getHitBoxes(tileXpos, tileYpos)
             if (tilecounter >= this.size - 1) {
