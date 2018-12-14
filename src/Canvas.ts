@@ -150,8 +150,9 @@ class Canvas {
                 imgstring = imgstring + 'deadend.png'
             }
             if (this.anchorPointGetPos == true) {
-                this.writeTileToCanvas(imgstring, tileXpos, tileYpos);
-            }
+                this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos);
+            }else{this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos)}
+            
             this.getHitBoxes(tileXpos, tileYpos)
             if (tilecounter >= this.size - 1) {
                 tileYpos = tileYpos + 129;
@@ -174,13 +175,20 @@ class Canvas {
      * @param {number} xPos -
      * @param {number} yPos -
      */
-    public writeTileToCanvas(src: string, xPos: number, yPos: number) {
+    public writeTileToCanvasAP(src: string, xPos: number, yPos: number) {
+        var img = new Image()
+        img.src = src;
+        img.addEventListener('load', () => {
+            this.ctx.drawImage(img, xPos, yPos)
+        })
+    }public writeTileToCanvas(src: string, xPos: number, yPos: number) {
         var img = new Image()
         img.src = src;
         img.addEventListener('load', () => {
             this.ctx.drawImage(img, xPos, yPos)
         })
     }
+
 
     /**
      * getHitBoxes

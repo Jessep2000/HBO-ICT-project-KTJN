@@ -96,7 +96,10 @@ class Canvas {
                 imgstring = imgstring + 'deadend.png';
             }
             if (this.anchorPointGetPos == true) {
-                this.writeTileToCanvas(imgstring, tileXpos, tileYpos);
+                this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos);
+            }
+            else {
+                this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos);
             }
             this.getHitBoxes(tileXpos, tileYpos);
             if (tilecounter >= this.size - 1) {
@@ -110,11 +113,18 @@ class Canvas {
             }
         }
     }
-    writeTileToCanvas(src, xpos, ypos) {
+    writeTileToCanvasAP(src, xPos, yPos) {
         var img = new Image();
         img.src = src;
         img.addEventListener('load', () => {
-            this.ctx.drawImage(img, xpos, ypos);
+            this.ctx.drawImage(img, xPos, yPos);
+        });
+    }
+    writeTileToCanvas(src, xPos, yPos) {
+        var img = new Image();
+        img.src = src;
+        img.addEventListener('load', () => {
+            this.ctx.drawImage(img, xPos, yPos);
         });
     }
     getHitBoxes(xPos, yPos) {
@@ -146,22 +156,6 @@ let init = function () {
     const DeliverRace = new Game();
 };
 window.addEventListener("load", init);
-class Entity {
-    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
-        this.imageSource = imgSrc;
-        this.xPos = xCoor;
-        this.yPos = yCoor;
-        this.width = width;
-        this.height = height;
-    }
-    drawBus() {
-    }
-}
-class Bus extends Entity {
-    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
-        super(imgSrc, xCoor, yCoor, width, height, canvas);
-    }
-}
 class Levels {
     constructor() {
         this.test = [
@@ -185,6 +179,22 @@ class Levels {
             '2_90_t_split', '1_0_straight', '2_x_split', '1_0_straight', '2_270_t_split',
             '1_90_turn', '2_0_straight', '1_180_t_split', '3_0_straight', '2_180_turn'
         ];
+    }
+}
+class Entity {
+    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
+        this.imageSource = imgSrc;
+        this.xPos = xCoor;
+        this.yPos = yCoor;
+        this.width = width;
+        this.height = height;
+    }
+    drawBus() {
+    }
+}
+class Bus extends Entity {
+    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
+        super(imgSrc, xCoor, yCoor, width, height, canvas);
     }
 }
 //# sourceMappingURL=app.js.map
