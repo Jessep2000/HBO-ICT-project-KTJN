@@ -20,6 +20,7 @@ const canvas = <HTMLCanvasElement>document.getElementById('canvas')
 
 let init = function () {
     const DeliverRace = new Canvas(canvas);
+    DeliverRace.initGame();
 }
 
 window.addEventListener("load", init);

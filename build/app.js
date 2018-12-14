@@ -13,6 +13,7 @@ class Canvas {
 const canvas = document.getElementById('canvas');
 let init = function () {
     const DeliverRace = new Canvas(canvas);
+    DeliverRace.initGame();
 };
 window.addEventListener("load", init);
 class Game {
@@ -21,9 +22,10 @@ class Game {
         this.levelData = new LevelData;
         this._levels = new Level(canvas);
         console.log('game.ts init');
-        this._levels.init(5, this.levelData.level1_1);
     }
     init() {
+        this._levels.init(5, this.levelData.level1_1);
+        console.log('game init');
     }
 }
 class helper {
@@ -55,14 +57,12 @@ class helper {
     }
 }
 class Entity {
-    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
-        this.imageSource = imgSrc;
+    constructor(imageSrc, xCoor, yCoor, width, height, canvas) {
+        this.imageSource = imageSrc;
         this.xPos = xCoor;
         this.yPos = yCoor;
         this.width = width;
         this.height = height;
-    }
-    drawBus() {
     }
 }
 class Bus extends Entity {
@@ -85,6 +85,7 @@ class Level {
         });
     }
     init(size, lvlInfo) {
+        console.log('level init');
         this.levelInfo = lvlInfo;
         this.size = size;
         if (this.levelInfo.length !== (this.size * this.size)) {

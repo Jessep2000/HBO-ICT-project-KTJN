@@ -19,6 +19,7 @@ class Level {
 
     //Initialize the canvas
     public init(size: number, lvlInfo: Array<string>) {
+        console.log('level init')
         this.levelInfo = lvlInfo
         this.size = size;
         if (this.levelInfo.length !== (this.size * this.size)) {
