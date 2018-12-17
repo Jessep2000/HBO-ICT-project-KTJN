@@ -6,20 +6,42 @@ class Bus extends Entity {
         super(imgSrc, xCoor, yCoor, width, height, canvas);
     }
 
-    public testArray: Array<number> = [192, 64, 321, 64]
+    public testArray: Array<number> = [300, 500, 100, 0, 400, 100, 600, 200, 100]
 
-    //Chance position of the bus
+    //Change position of the bus
     public moveBus() {
-        for (let i = 0; i <= 4; i = i + 2) {
-            let newXpos = this.testArray[i]
-            let newYpos = this.testArray[i + 1]
-            this.xPos = newXpos;
-            this.yPos = newYpos;
-            // this.helper.clearScreen();
-            this.drawBus();
-            console.log(i)
+        let stepCounter = 0;
+        let YstepReady: boolean
+        let XstepReady: boolean
+        let targetposX = this.testArray[stepCounter];
+        let targetposY = this.testArray[stepCounter + 1];
+        
+        if(this.xPos != this.testArray[stepCounter]){
+            if(this.xPos > this.testArray[stepCounter]){
+                this.xPos --;
+            } else if (this.xPos < this.testArray[stepCounter]){
+                this.xPos ++;
+            }
+        } else {
+            XstepReady = true;
         }
 
+        if(this.yPos != this.testArray[stepCounter + 1]){
+            if(this.yPos > this.testArray[stepCounter + 1]){
+                this.yPos --;
+            } else if (this.yPos < this.testArray[stepCounter + 1]){
+                this.yPos ++;
+            }
+        } else {
+            YstepReady = true;
+        }
+
+        if(XstepReady == true && YstepReady == true){
+            stepCounter = stepCounter +2;
+            YstepReady = false;
+            XstepReady = false;
+        }
+        this.drawBus();
     }
 
     //Draw the bus

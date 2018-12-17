@@ -11,6 +11,7 @@ class Level {
 
 
     public constructor(canvas: HTMLCanvasElement) {
+
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.canvas.addEventListener('click', (event) => {
@@ -25,6 +26,8 @@ class Level {
      * @param {Array} lvlInfo -
      */
     public init(size: number, lvlInfo: Array<string>) {
+        this.player = new Bus('./assets/images/game_elem/bus.png', 64, 64, 26, 14, this.canvas)
+        this.player.drawBus()
         this.levelInfo = lvlInfo
         this.size = size;
         if (this.levelInfo.length !== (this.size * this.size)) {
@@ -103,15 +106,13 @@ class Level {
                 tilecounter++;
             }
         }
-        this.player = new Bus('./assets/images/game_elem/bus.png', 64, 64, 26, 14, this.canvas)
-        this.player.drawBus()
     }
 
     public FrameUpdater(){
         setInterval(()=>{
             this.writeLevel();
             this.player.moveBus();
-        }, 30)
+        }, 10)
     }
 
     /**

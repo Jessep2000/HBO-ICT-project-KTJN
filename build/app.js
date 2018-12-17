@@ -40,17 +40,42 @@ class Entity {
 class Bus extends Entity {
     constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
         super(imgSrc, xCoor, yCoor, width, height, canvas);
-        this.testArray = [192, 64, 321, 64];
+        this.testArray = [300, 500, 100, 0, 400, 100, 600, 200, 100];
     }
     moveBus() {
-        for (let i = 0; i <= 4; i = i + 2) {
-            let newXpos = this.testArray[i];
-            let newYpos = this.testArray[i + 1];
-            this.xPos = newXpos;
-            this.yPos = newYpos;
-            this.drawBus();
-            console.log(i);
+        let stepCounter = 0;
+        let YstepReady;
+        let XstepReady;
+        let targetposX = this.testArray[stepCounter];
+        let targetposY = this.testArray[stepCounter + 1];
+        if (this.xPos != this.testArray[stepCounter]) {
+            if (this.xPos > this.testArray[stepCounter]) {
+                this.xPos--;
+            }
+            else if (this.xPos < this.testArray[stepCounter]) {
+                this.xPos++;
+            }
         }
+        else {
+            XstepReady = true;
+        }
+        if (this.yPos != this.testArray[stepCounter + 1]) {
+            if (this.yPos > this.testArray[stepCounter + 1]) {
+                this.yPos--;
+            }
+            else if (this.yPos < this.testArray[stepCounter + 1]) {
+                this.yPos++;
+            }
+        }
+        else {
+            YstepReady = true;
+        }
+        if (XstepReady == true && YstepReady == true) {
+            stepCounter = stepCounter + 2;
+            YstepReady = false;
+            XstepReady = false;
+        }
+        this.drawBus();
     }
     drawBus() {
         this.helper.writeImageToCanvas(this.imageSource, this.xPos - 20, this.yPos);
@@ -95,6 +120,8 @@ class Level {
         });
     }
     init(size, lvlInfo) {
+        this.player = new Bus('./assets/images/game_elem/bus.png', 64, 64, 26, 14, this.canvas);
+        this.player.drawBus();
         this.levelInfo = lvlInfo;
         this.size = size;
         if (this.levelInfo.length !== (this.size * this.size)) {
@@ -174,14 +201,12 @@ class Level {
                 tilecounter++;
             }
         }
-        this.player = new Bus('./assets/images/game_elem/bus.png', 64, 64, 26, 14, this.canvas);
-        this.player.drawBus();
     }
     FrameUpdater() {
         setInterval(() => {
             this.writeLevel();
             this.player.moveBus();
-        }, 30);
+        }, 10);
     }
     writeTileToCanvasAP(src, xPos, yPos) {
         var img = new Image();
