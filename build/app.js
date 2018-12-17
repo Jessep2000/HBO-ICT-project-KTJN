@@ -1,7 +1,6 @@
 class Canvas {
     constructor(canvas) {
-        this.canvas = canvas;
-        this.ctx = this.canvas.getContext("2d");
+        this.helper = new Helper(canvas);
         this.game = new Game(canvas);
     }
     initGame() {
@@ -10,9 +9,9 @@ class Canvas {
 }
 class Game {
     constructor(canvas) {
-        this._canvas = canvas;
-        this._canvas.width = 800;
-        this._canvas.height = 800;
+        this._helper = new Helper(canvas);
+        this._helper.GetWidth();
+        this._helper.GetHeight();
         this._levelData = new LevelData;
         this._levels = new Level(canvas);
         console.log('game.ts init');
@@ -30,7 +29,7 @@ let init = function () {
 window.addEventListener("load", init);
 class Entity {
     constructor(imageSrc, xCoor, yCoor, width, height, canvas) {
-        this.helper = new CanvasHelper(canvas);
+        this.helper = new Helper(canvas);
         this.imageSource = imageSrc;
         this.xPos = xCoor;
         this.yPos = yCoor;
@@ -57,16 +56,16 @@ class Bus extends Entity {
         this.helper.writeImageToCanvas(this.imageSource, this.xPos - 20, this.yPos);
     }
 }
-class CanvasHelper {
+class Helper {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
     }
     GetWidth() {
-        return this.canvas.width;
+        return this.canvas.width = 800;
     }
     GetHeight() {
-        return this.canvas.height;
+        return this.canvas.height = 800;
     }
     GetCenter() {
         return { X: this.GetWidth() / 2, Y: this.GetHeight() / 2 };

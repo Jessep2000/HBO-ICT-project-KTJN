@@ -1,8 +1,7 @@
-class CanvasHelper {
+class Helper {
 
     protected readonly canvas: HTMLCanvasElement;
     protected readonly ctx: CanvasRenderingContext2D;
-
 
     public constructor(canvas: HTMLCanvasElement){
         this.canvas = canvas
@@ -11,12 +10,12 @@ class CanvasHelper {
 
     //Get width of canvas
     public GetWidth(): number {
-        return this.canvas.width
+        return this.canvas.width = 800;
     }
 
     //Get height of canvas
     public GetHeight(): number {
-        return this.canvas.height
+        return this.canvas.height = 800;
     }
 
     //Get center of canvas

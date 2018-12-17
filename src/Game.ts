@@ -1,17 +1,17 @@
 class Game {
-    private _canvas: HTMLCanvasElement;
+    private _helper: Helper;
     private _levels: Level;
     private _levelData: LevelData;
 
     // private _bus: Bus;
 
     public constructor(canvas: HTMLCanvasElement) {
-        this._canvas = canvas
-        this._canvas.width = 800;
-        this._canvas.height = 800;
+        this._helper = new Helper(canvas);
+        this._helper.GetWidth();
+        this._helper.GetHeight();
         this._levelData = new LevelData;
-        this._levels = new Level(canvas)
-        console.log('game.ts init')
+        this._levels = new Level(canvas);
+        console.log('game.ts init');
 
     }
 

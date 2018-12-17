@@ -1,6 +1,6 @@
 class Entity
 {
-    protected helper: CanvasHelper;
+    protected helper: Helper;
     protected imageSource: string;
     protected xPos: number;
     protected yPos: number;
@@ -8,7 +8,7 @@ class Entity
     protected height: number;
 
     public constructor(imageSrc: string, xCoor: number, yCoor: number, width: number, height: number, canvas: HTMLCanvasElement) {
-        this.helper = new CanvasHelper(canvas);
+        this.helper = new Helper(canvas);
         this.imageSource = imageSrc;
         this.xPos = xCoor;
         this.yPos = yCoor;
