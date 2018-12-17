@@ -30,6 +30,7 @@ let init = function () {
 window.addEventListener("load", init);
 class Entity {
     constructor(imageSrc, xCoor, yCoor, width, height, canvas) {
+        this.helper = new CanvasHelper(canvas);
         this.imageSource = imageSrc;
         this.xPos = xCoor;
         this.yPos = yCoor;
@@ -40,10 +41,20 @@ class Entity {
 class Bus extends Entity {
     constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
         super(imgSrc, xCoor, yCoor, width, height, canvas);
+        this.testArray = [192, 64, 321, 64];
     }
     moveBus() {
+        for (let i = 0; i <= 4; i = i + 2) {
+            let newXpos = this.testArray[i];
+            let newYpos = this.testArray[i + 1];
+            this.xPos = newXpos;
+            this.yPos = newYpos;
+            this.drawBus();
+            console.log(i);
+        }
     }
-    getCords() {
+    drawBus() {
+        this.helper.writeImageToCanvas(this.imageSource, this.xPos - 20, this.yPos);
     }
 }
 class CanvasHelper {
@@ -85,14 +96,13 @@ class Level {
         });
     }
     init(size, lvlInfo) {
-        console.log('level init');
         this.levelInfo = lvlInfo;
         this.size = size;
         if (this.levelInfo.length !== (this.size * this.size)) {
             console.error('array "levelInfo" is not of proper size. Check syntax when creating object "level"');
         }
         else {
-            this.writeLevel();
+            this.FrameUpdater();
         }
     }
     writeLevel() {
@@ -165,6 +175,14 @@ class Level {
                 tilecounter++;
             }
         }
+        this.player = new Bus('./assets/images/game_elem/bus.png', 64, 64, 26, 14, this.canvas);
+        this.player.drawBus();
+    }
+    FrameUpdater() {
+        setInterval(() => {
+            this.writeLevel();
+            this.player.moveBus();
+        }, 30);
     }
     writeTileToCanvasAP(src, xPos, yPos) {
         var img = new Image();
@@ -176,7 +194,6 @@ class Level {
     getHitBoxes(xPos, yPos) {
         this.anchorPointX.push(xPos);
         this.anchorPointY.push(yPos);
-        console.log(this.anchorPointX, this.anchorPointY);
     }
     checkClick(X, Y) {
         for (let i = 0; i < this.anchorPointX.length; i++) {

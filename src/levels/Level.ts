@@ -6,7 +6,8 @@ class Level {
     private anchorPointY: Array<number> = []
     private anchorPointGetPos: Boolean;
     public canvas: HTMLCanvasElement;
-    public ctx: CanvasRenderingContext2D
+    public ctx: CanvasRenderingContext2D;
+    public player: Bus;
 
 
     public constructor(canvas: HTMLCanvasElement) {
@@ -19,13 +20,13 @@ class Level {
 
     //Initialize the canvas
     public init(size: number, lvlInfo: Array<string>) {
-        console.log('level init')
         this.levelInfo = lvlInfo
         this.size = size;
         if (this.levelInfo.length !== (this.size * this.size)) {
             console.error('array "levelInfo" is not of proper size. Check syntax when creating object "level"')
         } else {
-            this.writeLevel();
+            // this.writeLevel();
+            this.FrameUpdater();
         }
     }
 
@@ -84,9 +85,9 @@ class Level {
             }
             if (this.anchorPointGetPos == true) {
                 this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos);
+            } else {
+                this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos)
             }
-            else { this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos) }
-
             this.getHitBoxes(tileXpos, tileYpos)
             if (tilecounter >= this.size - 1) {
                 tileYpos = tileYpos + 129;
@@ -96,10 +97,16 @@ class Level {
                 tileXpos = tileXpos + 129;
                 tilecounter++;
             }
-            // console.log(tileYpos, tileXpos);
-            // console.log(tilecounter)
-            // console.log(imgstring)
         }
+        this.player = new Bus('./assets/images/game_elem/bus.png', 64, 64, 26, 14, this.canvas)
+        this.player.drawBus()
+    }
+
+    public FrameUpdater(){
+        setInterval(()=>{
+            this.writeLevel();
+            this.player.moveBus();
+        }, 30)
     }
 
     /**
@@ -128,7 +135,6 @@ class Level {
         this.anchorPointY.push(yPos);
         // this.ctx.fillStyle = '#ffff00';
         // this.ctx.fillRect(xPos, yPos , 128,128)
-        console.log(this.anchorPointX, this.anchorPointY)
     }
 
     /**
