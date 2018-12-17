@@ -1,12 +1,11 @@
 class Entity
 {
-    public helper: CanvasHelper
-    public imageSource: string;
-    private readonly canvas: Canvas;
-    public xPos: number;
-    public yPos: number;
-    private width: number;
-    private height: number;
+    protected helper: CanvasHelper;
+    protected imageSource: string;
+    protected xPos: number;
+    protected yPos: number;
+    protected width: number;
+    protected height: number;
 
     public constructor(imageSrc: string, xCoor: number, yCoor: number, width: number, height: number, canvas: HTMLCanvasElement) {
         this.helper = new CanvasHelper(canvas);

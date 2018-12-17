@@ -5,9 +5,9 @@ class Level {
     private anchorPointX: Array<number> = []
     private anchorPointY: Array<number> = []
     private anchorPointGetPos: Boolean;
-    public canvas: HTMLCanvasElement;
-    public ctx: CanvasRenderingContext2D;
-    public player: Bus;
+    protected readonly canvas: HTMLCanvasElement;
+    protected readonly ctx: CanvasRenderingContext2D;
+    private player: Bus;
 
 
     public constructor(canvas: HTMLCanvasElement) {
