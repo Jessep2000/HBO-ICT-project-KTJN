@@ -1,7 +1,7 @@
-class helper {
+class CanvasHelper {
 
-    public canvas: HTMLCanvasElement;
-    public ctx: CanvasRenderingContext2D;
+    protected readonly canvas: HTMLCanvasElement;
+    protected readonly ctx: CanvasRenderingContext2D;
 
 
     public constructor(canvas: HTMLCanvasElement){
