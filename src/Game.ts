@@ -15,6 +15,7 @@ class Game {
 
     }
 
+    //Initialize level
     public init() {
         this._levels.init(5, this._levelData.level1_1);
         console.log('game init');

@@ -8,6 +8,7 @@ class Bus extends Entity {
 
     public testArray: Array<number> = [192, 64, 321, 64]
 
+    //Chance position of the bus
     public moveBus() {
         for (let i = 0; i <= 4; i = i + 2) {
             let newXpos = this.testArray[i]
@@ -21,6 +22,7 @@ class Bus extends Entity {
 
     }
 
+    //Draw the bus
     public drawBus() {
         this.helper.writeImageToCanvas(this.imageSource, this.xPos - 20, this.yPos)
     }

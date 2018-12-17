@@ -7,6 +7,7 @@ class Canvas {
         this.game = new Game(canvas);
     }
 
+    //Initialize the game
     public initGame(){
         this.game.init();
     }

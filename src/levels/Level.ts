@@ -18,7 +18,12 @@ class Level {
         })
     }
 
-    //Initialize the canvas
+    /**
+     * Initialize the canvas
+     * @accessModifier {public}
+     * @param {number} size -
+     * @param {Array} lvlInfo -
+     */
     public init(size: number, lvlInfo: Array<string>) {
         this.levelInfo = lvlInfo
         this.size = size;
