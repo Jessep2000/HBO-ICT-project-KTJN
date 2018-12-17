@@ -7,6 +7,8 @@ class Game {
 
     public constructor(canvas: HTMLCanvasElement) {
         this._canvas = canvas
+        this._canvas.width = 800;
+        this._canvas.height = 800;
         this.levelData = new LevelData;
         this._levels = new Level(canvas)
         console.log('game.ts init')
@@ -20,3 +22,11 @@ class Game {
 
 }
 
+const canvas = <HTMLCanvasElement>document.getElementById('canvas')
+
+let init = function () {
+    const DeliverRace = new Game(canvas);
+    DeliverRace.init();
+}
+
+window.addEventListener("load", init);

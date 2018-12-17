@@ -1,8 +1,6 @@
 class Canvas {
     constructor(canvas) {
         this.canvas = canvas;
-        this.canvas.width = 800;
-        this.canvas.height = 800;
         this.ctx = this.canvas.getContext("2d");
         this.game = new Game(canvas);
     }
@@ -10,15 +8,11 @@ class Canvas {
         this.game.init();
     }
 }
-const canvas = document.getElementById('canvas');
-let init = function () {
-    const DeliverRace = new Canvas(canvas);
-    DeliverRace.initGame();
-};
-window.addEventListener("load", init);
 class Game {
     constructor(canvas) {
         this._canvas = canvas;
+        this._canvas.width = 800;
+        this._canvas.height = 800;
         this.levelData = new LevelData;
         this._levels = new Level(canvas);
         console.log('game.ts init');
@@ -28,6 +22,12 @@ class Game {
         console.log('game init');
     }
 }
+const canvas = document.getElementById('canvas');
+let init = function () {
+    const DeliverRace = new Game(canvas);
+    DeliverRace.init();
+};
+window.addEventListener("load", init);
 class helper {
     constructor(canvas) {
         this.canvas = canvas;
