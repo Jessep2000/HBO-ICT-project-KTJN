@@ -26,4 +26,12 @@ class LevelData
         '2_90_t_split', '1_0_straight', '2_x_split', '1_0_straight', '2_270_t_split',
         '1_90_turn', '2_0_straight', '1_180_t_split', '3_0_straight', '2_180_turn'
     ];
+
+    // public dick: Array<string> = [
+    //     'grass','1_0_turn','1_0_t_split','1_270_turn','grass',
+    //     'grass','1_90_straight','1_180_deadend','1_90_straight','grass',
+    //     'grass','1_90_straight','grass','1_90_straight','grass',
+    //     '1_0_turn','1_180_t_split','1_0_t_split','1_180_t_split','1_270_turn',
+    //     '1_90_turn','1_0_straight','1_180_t_split','1_0_straight','1_180_turn'
+    // ]
 }

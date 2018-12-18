@@ -17,7 +17,7 @@ class Game {
         console.log('game.ts init');
     }
     init() {
-        this._levels.init(5, this._levelData.level1_1);
+        this._levels.init(5, this._levelData.level1_2);
         console.log('game init');
     }
 }
@@ -40,30 +40,30 @@ class Entity {
 class Bus extends Entity {
     constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
         super(imgSrc, xCoor, yCoor, width, height, canvas);
-        this.testArray = [300, 500, 100, 0, 400, 100, 600, 200, 100];
+        this.busDirections = [64, 64, 193, 64, 322, 64, 322, 193, 322, 322, 451, 322, 451, 193, 580, 193, 580, 64, 64, 64];
+        this.stepCounter = 0;
     }
     moveBus() {
-        let stepCounter = 0;
         let YstepReady;
         let XstepReady;
-        let targetposX = this.testArray[stepCounter];
-        let targetposY = this.testArray[stepCounter + 1];
-        if (this.xPos != this.testArray[stepCounter]) {
-            if (this.xPos > this.testArray[stepCounter]) {
+        let targetposX = this.busDirections[this.stepCounter];
+        let targetposY = this.busDirections[this.stepCounter + 1];
+        if (this.xPos != targetposX) {
+            if (this.xPos > targetposX) {
                 this.xPos--;
             }
-            else if (this.xPos < this.testArray[stepCounter]) {
+            else if (this.xPos < targetposX) {
                 this.xPos++;
             }
         }
         else {
             XstepReady = true;
         }
-        if (this.yPos != this.testArray[stepCounter + 1]) {
-            if (this.yPos > this.testArray[stepCounter + 1]) {
+        if (this.yPos != targetposY) {
+            if (this.yPos > targetposY) {
                 this.yPos--;
             }
-            else if (this.yPos < this.testArray[stepCounter + 1]) {
+            else if (this.yPos < targetposY) {
                 this.yPos++;
             }
         }
@@ -71,7 +71,7 @@ class Bus extends Entity {
             YstepReady = true;
         }
         if (XstepReady == true && YstepReady == true) {
-            stepCounter = stepCounter + 2;
+            this.stepCounter = this.stepCounter + 2;
             YstepReady = false;
             XstepReady = false;
         }

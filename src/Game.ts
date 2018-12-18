@@ -17,7 +17,7 @@ class Game {
 
     //Initialize level
     public init() {
-        this._levels.init(5, this._levelData.level1_1);
+        this._levels.init(5, this._levelData.level1_2);
         console.log('game init');
     }
 

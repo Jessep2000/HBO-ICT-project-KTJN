@@ -6,30 +6,31 @@ class Bus extends Entity {
         super(imgSrc, xCoor, yCoor, width, height, canvas);
     }
 
-    public testArray: Array<number> = [300, 500, 100, 0, 400, 100, 600, 200, 100]
+    public busDirections: Array<number> = [64, 64, 193, 64, 322, 64, 322, 193, 322, 322, 451, 322, 451, 193, 580, 193, 580, 64, 64, 64 ]
+    protected stepCounter: number = 0;
 
     //Change position of the bus
     public moveBus() {
-        let stepCounter = 0;
+        // let this.stepCounter = 0;
         let YstepReady: boolean
         let XstepReady: boolean
-        let targetposX = this.testArray[stepCounter];
-        let targetposY = this.testArray[stepCounter + 1];
+        let targetposX = this.busDirections[this.stepCounter];
+        let targetposY = this.busDirections[this.stepCounter + 1];
         
-        if(this.xPos != this.testArray[stepCounter]){
-            if(this.xPos > this.testArray[stepCounter]){
+        if(this.xPos != targetposX){
+            if(this.xPos > targetposX){
                 this.xPos --;
-            } else if (this.xPos < this.testArray[stepCounter]){
+            } else if (this.xPos < targetposX){
                 this.xPos ++;
             }
         } else {
             XstepReady = true;
         }
 
-        if(this.yPos != this.testArray[stepCounter + 1]){
-            if(this.yPos > this.testArray[stepCounter + 1]){
+        if(this.yPos != targetposY){
+            if(this.yPos > targetposY){
                 this.yPos --;
-            } else if (this.yPos < this.testArray[stepCounter + 1]){
+            } else if (this.yPos < targetposY){
                 this.yPos ++;
             }
         } else {
@@ -37,7 +38,7 @@ class Bus extends Entity {
         }
 
         if(XstepReady == true && YstepReady == true){
-            stepCounter = stepCounter +2;
+            this.stepCounter = this.stepCounter +2;
             YstepReady = false;
             XstepReady = false;
         }
