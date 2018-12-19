@@ -11,7 +11,6 @@ class Level {
 
 
     public constructor(canvas: HTMLCanvasElement) {
-
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.canvas.addEventListener('click', (event) => {
@@ -20,13 +19,26 @@ class Level {
     }
 
     /**
+     * Array that contains vehicle colors
+     *FIXME: Move to Bus.ts, cause this isnt something the Level does!
+     */
+    private vehicles: Array<string> = [
+        "bus_blue",                     //0 -> blauw
+        "bus_green",                    //1 -> groen
+        "bus_orange",                   //2 -> oranje
+        "bus_pink",                     //3 -> roze
+        "bus_red",                      //4 -> rood
+        "bus_yellow"                    //5 -> geel
+    ]
+
+    /**
      * Initialize the canvas
      * @accessModifier {public}
      * @param {number} size -
      * @param {Array} lvlInfo -
      */
     public init(size: number, lvlInfo: Array<string>) {
-        this.player = new Bus('./assets/images/game_elem/bus.png', 64, 64, 26, 14, this.canvas)
+        this.player = new Bus(`./assets/images/vehicles/${this.vehicles[0]}.png`, 64, 64, 26, 14, this.canvas)
         this.player.drawBus()
         this.levelInfo = lvlInfo
         this.size = size;

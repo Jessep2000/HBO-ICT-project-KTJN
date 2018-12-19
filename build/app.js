@@ -113,6 +113,14 @@ class Level {
     constructor(canvas) {
         this.anchorPointX = [];
         this.anchorPointY = [];
+        this.vehicles = [
+            "bus_blue",
+            "bus_green",
+            "bus_orange",
+            "bus_pink",
+            "bus_red",
+            "bus_yellow"
+        ];
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.canvas.addEventListener('click', (event) => {
@@ -120,7 +128,7 @@ class Level {
         });
     }
     init(size, lvlInfo) {
-        this.player = new Bus('./assets/images/game_elem/bus.png', 64, 64, 26, 14, this.canvas);
+        this.player = new Bus(`./assets/images/vehicles/${this.vehicles[0]}.png`, 64, 64, 26, 14, this.canvas);
         this.player.drawBus();
         this.levelInfo = lvlInfo;
         this.size = size;
