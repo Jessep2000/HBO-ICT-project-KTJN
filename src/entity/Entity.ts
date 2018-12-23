@@ -1,24 +1,20 @@
 class Entity
 {
-    private imageSource: string;
-    private xPos: number;
-    private yPos: number;
-    private width: number;
-    private height: number; 
+    protected helper: Helper;
+    protected imageSource: string;
+    protected xPos: number;
+    protected yPos: number;
+    protected width: number;
+    protected height: number;
 
-    protected _canvas: Canvas;
-
-    public constructor(imgSrc: string, xCoor: number, yCoor: number, width: number, height: number, canvas: HTMLCanvasElement) {
-        this.imageSource = imgSrc;
+    public constructor(imageSrc: string, xCoor: number, yCoor: number, width: number, height: number, canvas: HTMLCanvasElement) {
+        this.helper = new Helper(canvas);
+        this.imageSource = imageSrc;
         this.xPos = xCoor;
         this.yPos = yCoor;
         this.width = width;
         this.height = height;
-        // this._canvas = canvas
+        //this.canvas = new Canvas(canvas /*Need 2 more arguments*/);
     }
 
-    //Draw bus
-    public drawBus(): void {
-        //this._canvas.writeImageToCanvas(/*TODO: add missing arguments*/)
-    }
 }

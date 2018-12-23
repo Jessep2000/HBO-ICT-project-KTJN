@@ -1,22 +1,96 @@
 class Canvas {
-    constructor(size, lvlInfo, canvas) {
-        this.anchorPointX = [];
-        this.anchorPointY = [];
+    constructor(canvas) {
+        this.helper = new Helper(canvas);
+        this.game = new Game(canvas);
+    }
+    initGame() {
+        this.game.init();
+    }
+}
+class Game {
+    constructor(canvas) {
+        this._helper = new Helper(canvas);
+        this._helper.GetWidth();
+        this._helper.GetHeight();
+        this._levelData = new LevelData;
+        this._levels = new Level(canvas);
+        console.log('game.ts init');
+    }
+    init() {
+        this._levels.init(5, this._levelData.level1_2);
+        console.log('game init');
+    }
+}
+const canvas = document.getElementById('canvas');
+let init = function () {
+    const DeliverRace = new Game(canvas);
+    DeliverRace.init();
+};
+window.addEventListener("load", init);
+class Entity {
+    constructor(imageSrc, xCoor, yCoor, width, height, canvas) {
+        this.helper = new Helper(canvas);
+        this.imageSource = imageSrc;
+        this.xPos = xCoor;
+        this.yPos = yCoor;
+        this.width = width;
+        this.height = height;
+    }
+}
+class Bus extends Entity {
+    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
+        super(imgSrc, xCoor, yCoor, width, height, canvas);
+        this.busDirections = [64, 64, 193, 64, 322, 64, 322, 193, 322, 322, 451, 322, 451, 193, 580, 193, 580, 64, 64, 64];
+        this.stepCounter = 0;
+    }
+    moveBus() {
+        let YstepReady;
+        let XstepReady;
+        let targetposX = this.busDirections[this.stepCounter];
+        let targetposY = this.busDirections[this.stepCounter + 1];
+        if (this.xPos != targetposX) {
+            if (this.xPos > targetposX) {
+                this.xPos--;
+            }
+            else if (this.xPos < targetposX) {
+                this.xPos++;
+            }
+        }
+        else {
+            XstepReady = true;
+        }
+        if (this.yPos != targetposY) {
+            if (this.yPos > targetposY) {
+                this.yPos--;
+            }
+            else if (this.yPos < targetposY) {
+                this.yPos++;
+            }
+        }
+        else {
+            YstepReady = true;
+        }
+        if (XstepReady == true && YstepReady == true) {
+            this.stepCounter = this.stepCounter + 2;
+            YstepReady = false;
+            XstepReady = false;
+        }
+        this.drawBus();
+    }
+    drawBus() {
+        this.helper.writeImageToCanvas(this.imageSource, this.xPos - 20, this.yPos);
+    }
+}
+class Helper {
+    constructor(canvas) {
         this.canvas = canvas;
-        this.canvas.width = 800;
-        this.canvas.height = 800;
-        this.ctx = this.canvas.getContext("2d");
-        this.size = size;
-        this.levelInfo = lvlInfo;
-        this.canvas.addEventListener('click', (event) => {
-            this.checkClick(event.screenX, event.screenY);
-        });
+        this.ctx = canvas.getContext('2d');
     }
     GetWidth() {
-        return this.canvas.width;
+        return this.canvas.width = 800;
     }
     GetHeight() {
-        return this.canvas.height;
+        return this.canvas.height = 800;
     }
     GetCenter() {
         return { X: this.GetWidth() / 2, Y: this.GetHeight() / 2 };
@@ -34,12 +108,35 @@ class Canvas {
         });
         image.src = src;
     }
-    init() {
+}
+class Level {
+    constructor(canvas) {
+        this.anchorPointX = [];
+        this.anchorPointY = [];
+        this.vehicles = [
+            "bus_blue",
+            "bus_green",
+            "bus_orange",
+            "bus_pink",
+            "bus_red",
+            "bus_yellow"
+        ];
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.canvas.addEventListener('click', (event) => {
+            this.checkClick(event.screenX, event.screenY);
+        });
+    }
+    init(size, lvlInfo) {
+        this.player = new Bus(`./assets/images/vehicles/${this.vehicles[0]}.png`, 64, 64, 26, 14, this.canvas);
+        this.player.drawBus();
+        this.levelInfo = lvlInfo;
+        this.size = size;
         if (this.levelInfo.length !== (this.size * this.size)) {
             console.error('array "levelInfo" is not of proper size. Check syntax when creating object "level"');
         }
         else {
-            this.writeLevel();
+            this.FrameUpdater();
         }
     }
     writeLevel() {
@@ -113,6 +210,12 @@ class Canvas {
             }
         }
     }
+    FrameUpdater() {
+        setInterval(() => {
+            this.writeLevel();
+            this.player.moveBus();
+        }, 10);
+    }
     writeTileToCanvasAP(src, xPos, yPos) {
         var img = new Image();
         img.src = src;
@@ -123,49 +226,15 @@ class Canvas {
     getHitBoxes(xPos, yPos) {
         this.anchorPointX.push(xPos);
         this.anchorPointY.push(yPos);
-        console.log(this.anchorPointX, this.anchorPointY);
     }
     checkClick(X, Y) {
         for (let i = 0; i < this.anchorPointX.length; i++) {
             if (X > this.anchorPointX[i] && X < this.anchorPointX[i] + 129 && Y > this.anchorPointY[i] && Y < this.anchorPointY[i] + 129) {
-                console.log(i);
             }
         }
     }
 }
-class Game {
-    constructor() {
-        const canvasElement = document.getElementById("canvas");
-        this._levels = new Levels;
-        this._canvas = new Canvas(5, this._levels.level1_1, canvasElement);
-        this.draw();
-        console.error("TEST");
-    }
-    draw() {
-        this._canvas.init();
-    }
-}
-let init = function () {
-    const DeliverRace = new Game();
-};
-window.addEventListener("load", init);
-class Entity {
-    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
-        this.imageSource = imgSrc;
-        this.xPos = xCoor;
-        this.yPos = yCoor;
-        this.width = width;
-        this.height = height;
-    }
-    drawBus() {
-    }
-}
-class Bus extends Entity {
-    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
-        super(imgSrc, xCoor, yCoor, width, height, canvas);
-    }
-}
-class Levels {
+class LevelData {
     constructor() {
         this.test = [
             '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',

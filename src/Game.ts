@@ -1,28 +1,33 @@
 class Game {
-    private _canvas: Canvas;
-    private _levels: Levels;
+    private _helper: Helper;
+    private _levels: Level;
+    private _levelData: LevelData;
+
     // private _bus: Bus;
 
-    public constructor() {
-        const canvasElement: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
-        this._levels = new Levels
-        this._canvas = new Canvas(5,this._levels.level1_1, canvasElement);
-        // this._bus = new Bus();
-        this.draw()
+    public constructor(canvas: HTMLCanvasElement) {
+        this._helper = new Helper(canvas);
+        this._helper.GetWidth();
+        this._helper.GetHeight();
+        this._levelData = new LevelData;
+        this._levels = new Level(canvas);
+        console.log('game.ts init');
 
-        console.error("TEST")
     }
 
-    //Draw Canvas
-    public draw() {
-        this._canvas.init();
-        // this._canvas.writeTextToCanvas("HI", 30, this._canvas.getHorizontalCenter(), this._canvas.getVerticalCenter(), "black", "center")
-        // this._canvas.writeImageToCanvas("../assets/images/road_tile/house_double/0/straight.png", 0, 0)
+    //Initialize level
+    public init() {
+        this._levels.init(5, this._levelData.level1_2);
+        console.log('game init');
     }
+
 }
 
+const canvas = <HTMLCanvasElement>document.getElementById('canvas')
+
 let init = function () {
-    const DeliverRace = new Game();
+    const DeliverRace = new Game(canvas);
+    DeliverRace.init();
 }
 
 window.addEventListener("load", init);
