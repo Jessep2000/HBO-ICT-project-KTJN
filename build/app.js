@@ -1,119 +1,8 @@
-class Canvas {
-    constructor(canvas) {
-        this.helper = new Helper(canvas);
-        this.game = new Game(canvas);
-    }
-    initGame() {
-        this.game.init();
-    }
-}
-class Game {
-    constructor(canvas) {
-        this._helper = new Helper(canvas);
-        this._helper.GetWidth();
-        this._helper.GetHeight();
-        this._levelData = new LevelData;
-        this._levels = new Level(canvas);
-        console.log('game.ts init');
-    }
-    init() {
-        this._levels.init(5, this._levelData.level1_2);
-        console.log('game init');
-    }
-}
-const canvas = document.getElementById('canvas');
-let init = function () {
-    const DeliverRace = new Game(canvas);
-    DeliverRace.init();
-};
-window.addEventListener("load", init);
-class Entity {
-    constructor(imageSrc, xCoor, yCoor, width, height, canvas) {
-        this.helper = new Helper(canvas);
-        this.imageSource = imageSrc;
-        this.xPos = xCoor;
-        this.yPos = yCoor;
-        this.width = width;
-        this.height = height;
-    }
-}
-class Bus extends Entity {
-    constructor(imgSrc, xCoor, yCoor, width, height, canvas) {
-        super(imgSrc, xCoor, yCoor, width, height, canvas);
-        this.busDirections = [64, 64, 193, 64, 322, 64, 322, 193, 322, 322, 451, 322, 451, 193, 580, 193, 580, 64, 64, 64];
+class Bus {
+    constructor(canvas, imgSrc, xCoor, yCoor) {
+        this.busDirection = [64, 64, 193, 64, 322, 64, 322, 193, 322, 322, 451, 322, 451, 193, 580, 193, 580, 64, 64, 64];
         this.stepCounter = 0;
-    }
-    moveBus() {
-        let YstepReady;
-        let XstepReady;
-        let targetposX = this.busDirections[this.stepCounter];
-        let targetposY = this.busDirections[this.stepCounter + 1];
-        if (this.xPos != targetposX) {
-            if (this.xPos > targetposX) {
-                this.xPos--;
-            }
-            else if (this.xPos < targetposX) {
-                this.xPos++;
-            }
-        }
-        else {
-            XstepReady = true;
-        }
-        if (this.yPos != targetposY) {
-            if (this.yPos > targetposY) {
-                this.yPos--;
-            }
-            else if (this.yPos < targetposY) {
-                this.yPos++;
-            }
-        }
-        else {
-            YstepReady = true;
-        }
-        if (XstepReady == true && YstepReady == true) {
-            this.stepCounter = this.stepCounter + 2;
-            YstepReady = false;
-            XstepReady = false;
-        }
-        this.drawBus();
-    }
-    drawBus() {
-        this.helper.writeImageToCanvas(this.imageSource, this.xPos - 20, this.yPos);
-    }
-}
-class Helper {
-    constructor(canvas) {
-        this.canvas = canvas;
-        this.ctx = canvas.getContext('2d');
-    }
-    GetWidth() {
-        return this.canvas.width = 800;
-    }
-    GetHeight() {
-        return this.canvas.height = 800;
-    }
-    GetCenter() {
-        return { X: this.GetWidth() / 2, Y: this.GetHeight() / 2 };
-    }
-    writeTextToCanvas(text, fontSize, xPos, yPos, color = "white", alignment = "center") {
-        this.ctx.font = `${fontSize}px SSRS`;
-        this.ctx.fillStyle = color;
-        this.ctx.textAlign = alignment;
-        this.ctx.fillText(text, xPos, yPos);
-    }
-    writeImageToCanvas(src, xPos, yPos) {
-        let image = new Image();
-        image.addEventListener('load', () => {
-            this.ctx.drawImage(image, xPos, yPos);
-        });
-        image.src = src;
-    }
-}
-class Level {
-    constructor(canvas) {
-        this.anchorPointX = [];
-        this.anchorPointY = [];
-        this.vehicles = [
+        this.vehicleColor = [
             "bus_blue",
             "bus_green",
             "bus_orange",
@@ -121,119 +10,247 @@ class Level {
             "bus_red",
             "bus_yellow"
         ];
-        this.canvas = canvas;
-        this.ctx = canvas.getContext('2d');
-        this.canvas.addEventListener('click', (event) => {
+        this.canvas = new Canvas(canvas);
+        this.imageSource = imgSrc;
+        this.xPos = xCoor;
+        this.yPos = yCoor;
+    }
+    ;
+    moveBus() {
+        let YstepReady;
+        let XstepReady;
+        let targetPosX = this.busDirection[this.stepCounter];
+        let targetPosY = this.busDirection[this.stepCounter + 1];
+        if (this.xPos != targetPosX) {
+            if (this.xPos > targetPosX) {
+                this.xPos--;
+            }
+            else if (this.xPos < targetPosX) {
+                this.xPos++;
+            }
+        }
+        else {
+            XstepReady = true;
+        }
+        ;
+        if (this.yPos != targetPosY) {
+            if (this.yPos > targetPosY) {
+                this.yPos--;
+            }
+            else if (this.yPos < targetPosY) {
+                this.yPos++;
+            }
+        }
+        else {
+            YstepReady = true;
+        }
+        ;
+        if (XstepReady == true && YstepReady == true) {
+            this.stepCounter = this.stepCounter + 2;
+            YstepReady = false;
+            YstepReady = false;
+        }
+        this.drawBus();
+    }
+    ;
+    drawBus() {
+        this.canvas.writeImageToCanvas(this.imageSource, this.xPos - 20, this.yPos);
+    }
+    ;
+}
+class Canvas {
+    constructor(canvasId) {
+        this.canvas = canvasId;
+        this.canvas.width = 640;
+        this.canvas.height = 640;
+        this.ctx = this.canvas.getContext("2d");
+    }
+    ;
+    GetWidth() {
+        return this.canvas.width;
+    }
+    ;
+    GetHeight() {
+        return this.canvas.height;
+    }
+    ;
+    GetCenter() {
+        return this.canvas.width / 2,
+            this.canvas.height / 2;
+    }
+    ;
+    writeTextToCanvas(text, fontSize, xPos, yPos, color = "white", alignment = "center") {
+        this.ctx.font = `${fontSize}px SSRS`;
+        this.ctx.fillStyle = color;
+        this.ctx.textAlign = alignment;
+        this.ctx.fillText(text, xPos, yPos);
+    }
+    ;
+    writeImageToCanvas(src, xPos, yPos) {
+        let image = new Image();
+        image.addEventListener("load", () => {
+            this.ctx.drawImage(image, xPos, yPos);
+        });
+        image.src = src;
+    }
+    ;
+    writeTileToCanvasAP(src, xPos, yPos) {
+        let image = new Image();
+        image.src = src;
+        image.addEventListener("load", () => {
+            this.ctx.drawImage(image, xPos, yPos);
+        });
+    }
+    ;
+}
+class Level {
+    constructor(canvasId) {
+        this.anchorPointX = [];
+        this.anchorPointY = [];
+        this.levelHelper = new Canvas(canvasId);
+        this.levelHelper.canvas.addEventListener("click", (event) => {
             this.checkClick(event.screenX, event.screenY);
         });
     }
-    init(size, lvlInfo) {
-        this.player = new Bus(`./assets/images/vehicles/${this.vehicles[0]}.png`, 64, 64, 26, 14, this.canvas);
-        this.player.drawBus();
-        this.levelInfo = lvlInfo;
-        this.size = size;
-        if (this.levelInfo.length !== (this.size * this.size)) {
-            console.error('array "levelInfo" is not of proper size. Check syntax when creating object "level"');
-        }
-        else {
-            this.FrameUpdater();
-        }
-    }
+    ;
     writeLevel() {
-        let tileXpos = 0;
-        let tileYpos = 0;
-        let tilecounter = 0;
+        let tileXPos = 0;
+        let tileYPos = 0;
+        let tileCounter = 0;
         for (let i = 0; i < this.size * this.size; i++) {
-            let imgstring = './assets/images/road_tile/';
+            let imgString = "./assets/images/road_tile/";
             let testString = this.levelInfo[i];
-            if (testString.includes('grass')) {
-                imgstring = imgstring + 'grass.png';
+            if (testString.includes("grass")) {
+                imgString = imgString + "grass.png";
                 this.anchorPointGetPos = false;
             }
             else {
                 this.anchorPointGetPos = true;
             }
+            ;
             if (testString.includes('1_')) {
-                imgstring = imgstring + 'empty/';
+                imgString = imgString + 'empty/';
             }
+            ;
             if (testString.includes('2_')) {
-                imgstring = imgstring + 'house_normal/';
+                imgString = imgString + 'house_normal/';
             }
+            ;
             if (testString.includes('3_')) {
-                imgstring = imgstring + 'house_double/';
+                imgString = imgString + 'house_double/';
             }
+            ;
             if (testString.includes('4_')) {
-                imgstring = imgstring + 'house_hp/';
+                imgString = imgString + 'house_hp/';
             }
+            ;
             if (testString.includes('x_split')) {
-                imgstring = imgstring + 'X-split.png';
+                imgString = imgString + 'X-split.png';
             }
+            ;
             if (testString.includes('_0_')) {
-                imgstring = imgstring + '0/';
+                imgString = imgString + '0/';
             }
+            ;
             if (testString.includes('90')) {
-                imgstring = imgstring + '90/';
+                imgString = imgString + '90/';
             }
+            ;
             if (testString.includes('180')) {
-                imgstring = imgstring + '180/';
+                imgString = imgString + '180/';
             }
+            ;
             if (testString.includes('270')) {
-                imgstring = imgstring + '270/';
+                imgString = imgString + '270/';
             }
+            ;
             if (testString.includes('straight')) {
-                imgstring = imgstring + 'straight.png';
+                imgString = imgString + 'straight.png';
             }
+            ;
             if (testString.includes('t_split')) {
-                imgstring = imgstring + 'T-split.png';
+                imgString = imgString + 'T-split.png';
             }
+            ;
             if (testString.includes('turn')) {
-                imgstring = imgstring + 'turn.png';
+                imgString = imgString + 'turn.png';
             }
+            ;
             if (testString.includes('dead')) {
-                imgstring = imgstring + 'deadend.png';
+                imgString = imgString + 'deadend.png';
             }
+            ;
             if (this.anchorPointGetPos == true) {
-                this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos);
+                this.levelHelper.writeTileToCanvasAP(imgString, tileXPos, tileYPos);
             }
             else {
-                this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos);
+                this.levelHelper.writeTileToCanvasAP(imgString, tileXPos, tileYPos);
             }
-            this.getHitBoxes(tileXpos, tileYpos);
-            if (tilecounter >= this.size - 1) {
-                tileYpos = tileYpos + 129;
-                tileXpos = 0;
-                tilecounter = 0;
+            ;
+            this.getHitBoxes(tileXPos, tileYPos);
+            if (tileCounter >= this.size - 1) {
+                tileYPos = tileYPos + 129;
+                tileXPos = 0;
+                tileCounter = 0;
             }
             else {
-                tileXpos = tileXpos + 129;
-                tilecounter++;
+                tileXPos = tileXPos + 129;
+                tileCounter++;
             }
         }
     }
-    FrameUpdater() {
-        setInterval(() => {
-            this.writeLevel();
-            this.player.moveBus();
-        }, 10);
-    }
-    writeTileToCanvasAP(src, xPos, yPos) {
-        var img = new Image();
-        img.src = src;
-        img.addEventListener('load', () => {
-            this.ctx.drawImage(img, xPos, yPos);
-        });
-    }
+    ;
     getHitBoxes(xPos, yPos) {
         this.anchorPointX.push(xPos);
         this.anchorPointY.push(yPos);
     }
+    ;
     checkClick(X, Y) {
         for (let i = 0; i < this.anchorPointX.length; i++) {
-            if (X > this.anchorPointX[i] && X < this.anchorPointX[i] + 129 && Y > this.anchorPointY[i] && Y < this.anchorPointY[i] + 129) {
+            if (X > this.anchorPointX[i] &&
+                X < this.anchorPointX[i] + 129 &&
+                Y > this.anchorPointY[i] &&
+                Y < this.anchorPointY[i] + 129) {
             }
         }
     }
+    ;
 }
+class Game {
+    constructor() {
+        const CanvasElement = document.getElementById("canvas");
+        this.level = new Level(CanvasElement);
+        this.levelData = new LevelData;
+        this.player = new Bus(CanvasElement, `./assets/images/vehicles/bus_yellow.png`, 64, 64);
+    }
+    init(size, lvlInfo) {
+        this.player.drawBus();
+        this.level.levelInfo = lvlInfo;
+        this.level.size = size;
+        if (this.level.levelInfo.length !== (this.level.size * this.level.size)) {
+            console.error("Array 'levelInfo' isn't the right size. Check syntax when creating object 'level'!");
+        }
+        else {
+            this.frameUpdater();
+        }
+    }
+    frameUpdater() {
+        setInterval(() => {
+            this.level.writeLevel();
+            this.player.moveBus();
+        }, 10);
+    }
+    ;
+    draw() {
+        this.init(5, this.levelData.level1_1);
+        console.log("game init");
+    }
+}
+let init = function () {
+    const DeliverRace = new Game();
+    DeliverRace.draw();
+};
+window.addEventListener("load", init);
 class LevelData {
     constructor() {
         this.test = [
