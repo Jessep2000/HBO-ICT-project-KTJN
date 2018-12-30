@@ -37,7 +37,7 @@ class Game
 
     //Draw level
     public draw(): void {
-        this.init(5, this.levelData.level1_1);
+        this.init(5, this.levelData.level1_2);
         console.log("game init")
     }
 

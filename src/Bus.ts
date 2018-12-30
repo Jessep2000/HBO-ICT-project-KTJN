@@ -8,7 +8,7 @@ class Bus
     //private height: number;
     
     //left: X-coor | right: Y-coor
-    public busDirection: Array<number> = [64, 64, 193, 64, 322, 64, 322, 193, 322, 322, 451, 322, 451, 193, 580, 193, 580, 64, 64, 64]
+    public busDirection: Array<number> = [64, 64, 194, 64, 322, 64, 322, 193, 322, 322, 451, 322, 451, 193, 580, 193, 580, 64, 64, 64]
     protected stepCounter: number = 0;
     
     //Chose from different color vehicles

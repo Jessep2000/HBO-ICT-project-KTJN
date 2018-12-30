@@ -1,6 +1,6 @@
 class Bus {
     constructor(canvas, imgSrc, xCoor, yCoor) {
-        this.busDirection = [64, 64, 193, 64, 322, 64, 322, 193, 322, 322, 451, 322, 451, 193, 580, 193, 580, 64, 64, 64];
+        this.busDirection = [64, 64, 194, 64, 322, 64, 322, 193, 322, 322, 451, 322, 451, 193, 580, 193, 580, 64, 64, 64];
         this.stepCounter = 0;
         this.vehicleColor = [
             "bus_blue",
@@ -242,7 +242,7 @@ class Game {
     }
     ;
     draw() {
-        this.init(5, this.levelData.level1_1);
+        this.init(5, this.levelData.level1_2);
         console.log("game init");
     }
 }

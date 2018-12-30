@@ -3,6 +3,17 @@
     overflow: hidden;
 }
 
+body {
+    background-color: skyblue;
+}
+
+canvas {
+    border: 2px solid black;
+    position: absolute;
+    left: 27%;
+    height: 100vh;
+}
+
 @font-face {
     font-family: "SSRS";
     src: url("../fonts/Supersonic\ Rocketship.ttf") format("truetype");
