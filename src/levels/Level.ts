@@ -1,146 +1,94 @@
-class Level {
-
-    private levelInfo: Array<string>;
-    private size: number;
-    private anchorPointX: Array<number> = []
-    private anchorPointY: Array<number> = []
+class Level
+{
+    private levelHelper: Canvas;
+    public levelInfo: Array<string>;
+    public size: number;
+    private anchorPointX: Array<number> = [];
+    private anchorPointY: Array<number> = [];
     private anchorPointGetPos: Boolean;
-    protected readonly canvas: HTMLCanvasElement;
-    protected readonly ctx: CanvasRenderingContext2D;
-    private player: Bus;
 
+    public constructor(canvasId: HTMLCanvasElement) {
 
-    public constructor(canvas: HTMLCanvasElement) {
-        this.canvas = canvas;
-        this.ctx = canvas.getContext('2d');
-        this.canvas.addEventListener('click', (event) => {
-            this.checkClick(event.screenX, event.screenY)
-        })
-    }
+        this.levelHelper = new Canvas(canvasId);
+        this.levelHelper.canvas.addEventListener("click", (event) => {
+            this.checkClick(event.screenX, event.screenY);
+        });
+    };
 
-    /**
-     * Array that contains vehicle colors
-     *FIXME: Move to Bus.ts, cause this isnt something the Level does!
-     */
-    private vehicles: Array<string> = [
-        "bus_blue",                     //0 -> blauw
-        "bus_green",                    //1 -> groen
-        "bus_orange",                   //2 -> oranje
-        "bus_pink",                     //3 -> roze
-        "bus_red",                      //4 -> rood
-        "bus_yellow"                    //5 -> geel
-    ]
-
-    /**
-     * Initialize the canvas
-     * @accessModifier {public}
-     * @param {number} size -
-     * @param {Array} lvlInfo -
-     */
-    public init(size: number, lvlInfo: Array<string>) {
-        this.player = new Bus(`./assets/images/vehicles/${this.vehicles[0]}.png`, 64, 64, 26, 14, this.canvas)
-        this.player.drawBus()
-        this.levelInfo = lvlInfo
-        this.size = size;
-        if (this.levelInfo.length !== (this.size * this.size)) {
-            console.error('array "levelInfo" is not of proper size. Check syntax when creating object "level"')
-        } else {
-            // this.writeLevel();
-            this.FrameUpdater();
-        }
-    }
+    //FIXME: Find a way to start level in Game.ts
 
     //Draw level to canvas
-    public writeLevel() {
-        let tileXpos = 0;
-        let tileYpos = 0;
-        let tilecounter = 0;
+    public writeLevel(): void {
+        let tileXPos = 0;
+        let tileYPos = 0;
+        let tileCounter = 0;
+        
         for (let i = 0; i < this.size * this.size; i++) {
-            let imgstring = './assets/images/road_tile/'
+            let imgString = "./assets/images/road_tile/";
             let testString = this.levelInfo[i];
-            if (testString.includes('grass')) {
-                imgstring = imgstring + 'grass.png';
-                this.anchorPointGetPos = false
+
+            //MAYBE TODO: Find a way to make a switchcase
+            if (testString.includes("grass")) {
+                imgString = imgString + "grass.png";
+                this.anchorPointGetPos = false;
             } else {
                 this.anchorPointGetPos = true;
-            }
+            };
             if (testString.includes('1_')) {
-                imgstring = imgstring + 'empty/'
-            }
+                imgString = imgString + 'empty/'
+            };
             if (testString.includes('2_')) {
-                imgstring = imgstring + 'house_normal/'
-            }
+                imgString = imgString + 'house_normal/'
+            };
             if (testString.includes('3_')) {
-                imgstring = imgstring + 'house_double/'
-            }
+                imgString = imgString + 'house_double/'
+            };
             if (testString.includes('4_')) {
-                imgstring = imgstring + 'house_hp/'
-            }
+                imgString = imgString + 'house_hp/'
+            };
             if (testString.includes('x_split')) {
-                imgstring = imgstring + 'X-split.png'
-            }
+                imgString = imgString + 'X-split.png'
+            };
             if (testString.includes('_0_')) {
-                imgstring = imgstring + '0/'
-            }
+                imgString = imgString + '0/'
+            };
             if (testString.includes('90')) {
-                imgstring = imgstring + '90/'
-            }
+                imgString = imgString + '90/'
+            };
             if (testString.includes('180')) {
-                imgstring = imgstring + '180/'
-            }
+                imgString = imgString + '180/'
+            };
             if (testString.includes('270')) {
-                imgstring = imgstring + '270/'
-            }
+                imgString = imgString + '270/'
+            };
             if (testString.includes('straight')) {
-                imgstring = imgstring + 'straight.png'
-            }
+                imgString = imgString + 'straight.png'
+            };
             if (testString.includes('t_split')) {
-                imgstring = imgstring + 'T-split.png'
-            }
+                imgString = imgString + 'T-split.png'
+            };
             if (testString.includes('turn')) {
-                imgstring = imgstring + 'turn.png'
-            }
+                imgString = imgString + 'turn.png'
+            };
             if (testString.includes('dead')) {
-                imgstring = imgstring + 'deadend.png'
-            }
+                imgString = imgString + 'deadend.png'
+            };
             if (this.anchorPointGetPos == true) {
-                this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos);
+                this.levelHelper.writeTileToCanvasAP(imgString, tileXPos, tileYPos);
             } else {
-                this.writeTileToCanvasAP(imgstring, tileXpos, tileYpos)
-            }
-            this.getHitBoxes(tileXpos, tileYpos)
-            if (tilecounter >= this.size - 1) {
-                tileYpos = tileYpos + 129;
-                tileXpos = 0;
-                tilecounter = 0;
+                this.levelHelper.writeTileToCanvasAP(imgString, tileXPos, tileYPos);
+            };
+            this.getHitBoxes(tileXPos, tileYPos)
+            if (tileCounter >= this.size - 1) {
+                tileYPos = tileYPos + 129;
+                tileXPos = 0;
+                tileCounter = 0;
             } else {
-                tileXpos = tileXpos + 129;
-                tilecounter++;
+                tileXPos = tileXPos + 129;
+                tileCounter++;
             }
         }
-    }
-
-    public FrameUpdater(){
-        setInterval(()=>{
-            this.writeLevel();
-            this.player.moveBus();
-        }, 10)
-    }
-
-    /**
-     * writeTileToCanvas
-     * @accessModifier {public}
-     * @param {string} src -
-     * @param {number} xPos -
-     * @param {number} yPos -
-     */
-    public writeTileToCanvasAP(src: string, xPos: number, yPos: number) {
-        var img = new Image()
-        img.src = src;
-        img.addEventListener('load', () => {
-            this.ctx.drawImage(img, xPos, yPos)
-        })
-    }
+    };
 
     /**
      * getHitBoxes
@@ -148,12 +96,10 @@ class Level {
      * @param {number} xPos -
      * @param {number} yPos -
      */
-    public getHitBoxes(xPos: number, yPos: number) {
+    public getHitBoxes(xPos: number, yPos: number): void {
         this.anchorPointX.push(xPos);
         this.anchorPointY.push(yPos);
-        // this.ctx.fillStyle = '#ffff00';
-        // this.ctx.fillRect(xPos, yPos , 128,128)
-    }
+    };
 
     /**
      * checkClick
@@ -161,11 +107,13 @@ class Level {
      * @param {number} X -
      * @param {number} Y -
      */
-    public checkClick(X: number, Y: number) {
+    public checkClick(X: number, Y: number): void {
         for (let i = 0; i < this.anchorPointX.length; i++) {
-            if (X > this.anchorPointX[i] && X < this.anchorPointX[i] + 129 && Y > this.anchorPointY[i] && Y < this.anchorPointY[i] + 129) {
-
+            if (X > this.anchorPointX[i] &&
+                X < this.anchorPointX[i] + 129 &&
+                Y > this.anchorPointY[i] &&
+                Y < this.anchorPointY[i] + 129) {
             }
         }
-    }
+    };
 }
