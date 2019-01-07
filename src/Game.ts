@@ -6,6 +6,8 @@ class Game
     private level: Level;
     private levelData: LevelData;
     private player: Bus;
+    private timer: Timer
+
 
     public constructor() {
         const CanvasElement: HTMLCanvasElement = <HTMLCanvasElement>document.getElementById("canvas");
@@ -13,6 +15,7 @@ class Game
         this.level = new Level(CanvasElement);
         this.levelData = new LevelData;
         this.player = new Bus(CanvasElement, `./assets/images/vehicles/bus_yellow.png`, 64, 64);    //FIXME: Add the possibility to chose from different colors from 'Array' in class 'Bus'
+        this.timer = new Timer();
     }
 
     //Init level
@@ -38,7 +41,9 @@ class Game
     //Draw level
     public draw(): void {
         this.init(5, this.levelData.level1_2);
-        console.log("game init")
+        console.log("game init");
+
+        this.timer.timeVar;
     }
 
 }

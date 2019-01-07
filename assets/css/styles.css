@@ -7,10 +7,25 @@ body {
     background-color: skyblue;
 }
 
+
+.container-screen {
+    display: flex;
+}
+
+.timer-box {
+    flex: 1;
+    font-size: 50px;
+    font-family: "SSRS";
+    padding: 10px;
+}
+
+.canvas-box {
+    flex: auto;
+}
+
+
 canvas {
     border: 2px solid black;
-    position: absolute;
-    left: 25%;
 }
 
 @font-face {
