@@ -1,7 +1,9 @@
 class Bus {
     constructor(canvas, imgSrc, xCoor, yCoor) {
-        this.busDirection = [64, 64, 194, 64, 322, 64, 322, 193, 322, 322, 451, 322, 451, 193, 580, 193, 580, 64, 64, 64];
+        this.busDirection = [64, 64];
         this.stepCounter = 0;
+        this.stepX = 64;
+        this.stepY = 64;
         this.vehicleColor = [
             "bus_blue",
             "bus_green",
@@ -16,6 +18,70 @@ class Bus {
         this.yPos = yCoor;
     }
     ;
+    getBusDirction(event) {
+        let newPosX = this.stepX;
+        let newPosY = this.stepY;
+        let optionUp;
+        let optionDown;
+        let optionLeft;
+        let optionRight;
+        if (this.stepX <= 64) {
+            optionLeft = false;
+        }
+        else {
+            optionLeft = true;
+        }
+        if (this.stepX >= 576) {
+            optionRight = false;
+        }
+        else {
+            optionRight = true;
+        }
+        if (this.stepY <= 64) {
+            optionUp = false;
+        }
+        else {
+            optionUp = true;
+        }
+        if (this.stepY >= 576) {
+            optionDown = false;
+        }
+        else {
+            optionDown = true;
+        }
+        console.log(optionDown, optionUp, optionLeft, optionRight);
+        if (event.keyCode == 38) {
+            if (optionUp == true) {
+                newPosY = this.stepY - 128;
+                this.stepY = newPosY;
+                console.log('up');
+            }
+        }
+        if (event.keyCode == 40) {
+            if (optionDown == true) {
+                newPosY = this.stepY + 128;
+                this.stepY = newPosY;
+                console.log('down');
+            }
+        }
+        if (event.keyCode == 37) {
+            if (optionLeft == true) {
+                newPosX = this.stepX - 128;
+                this.stepX = newPosX;
+                console.log('left');
+            }
+        }
+        if (event.keyCode == 39) {
+            if (optionRight == true) {
+                newPosX = this.stepX + 128;
+                this.stepX = newPosX;
+                console.log('right');
+            }
+        }
+        this.busDirection.push(this.stepX);
+        this.busDirection.push(this.stepY);
+        console.log(this.busDirection);
+    }
     moveBus() {
         let YstepReady;
         let XstepReady;
@@ -313,7 +379,7 @@ class GameScreen {
     constructor(canvasElem) {
         this.level = new Level(canvasElem);
         this.levelData = new LevelData;
-        this.player = new Bus(canvasElem, `../assets/images/vehicles/bus_yellow.png`, 64, 64);
+        this.player = new Bus(canvasElem, `./assets/images/vehicles/bus_yellow.png`, 64, 64);
     }
     ;
     init(size, lvlInfo) {
@@ -324,6 +390,9 @@ class GameScreen {
             console.error("Array 'levelInfo' isn't the right size. Check syntax when creating object 'level'!");
         }
         else {
+            window.addEventListener('keyup', (event) => {
+                this.player.getBusDirction(event);
+            });
             this.frameUpdater();
         }
     }

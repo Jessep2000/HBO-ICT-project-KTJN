@@ -1,5 +1,4 @@
-class Canvas
-{
+class Canvas {
     public readonly canvas: HTMLCanvasElement;
     public readonly ctx: CanvasRenderingContext2D;
 
@@ -25,14 +24,14 @@ class Canvas
     //Get center of canvas
     public GetCenter(): number {
         return this.canvas.width / 2,       //width
-                this.canvas.height / 2      //height
+            this.canvas.height / 2      //height
     };
 
     //Clear canvas
     public clearCanvas(): void {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     };
-    
+
     //-----------------------------------------------------------------------------------------------
     /**
      * writeTextToCanvas
@@ -73,11 +72,11 @@ class Canvas
         height?: number
     ): void {
         let image = new Image();
-        
+
         image.addEventListener("load", () => {
             this.ctx.drawImage(image, xPos, yPos, width, height);
         });
-        
+
         image.src = src;
     };
 
