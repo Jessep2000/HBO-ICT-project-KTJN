@@ -3,12 +3,14 @@ class Bus {
     private imageSource: string;
     private xPos: number;
     private yPos: number;
+    private levelData: LevelData;
     //private width: number;
     //private height: number;
 
     //left: X-coor | right: Y-coor
     public busDirection: Array<number> = [64, 64]
     protected stepCounter: number = 0;
+    protected preStepCounter: number = 0;
     protected stepX: number = 64;
     protected stepY: number = 64;
 
@@ -24,6 +26,7 @@ class Bus {
 
 
     public constructor(canvas: HTMLCanvasElement, imgSrc: string, xCoor: number, yCoor: number, /*width: number, height: number*/) {
+        this.levelData = new LevelData();
         this.canvas = new Canvas(canvas);
         this.imageSource = imgSrc;
         this.xPos = xCoor;
@@ -35,62 +38,99 @@ class Bus {
     public getBusDirction(event: KeyboardEvent) {
         let newPosX = this.stepX
         let newPosY = this.stepY
-        let optionUp: boolean;
-        let optionDown: boolean;
-        let optionLeft: boolean;
-        let optionRight: boolean;
+        let lineBeginX = this.stepX;
+        let lineBeginY = this.stepY;
+        let optionUp: boolean = true;
+        let optionDown: boolean = true;
+        let optionLeft: boolean = true;
+        let optionRight: boolean = true;
+        let getIndex: number;
+        getIndex = (((this.stepY - 64) / 128) * 5) + ((this.stepX - 64) / 128)
+        let currentTile: string = this.levelData.level1_2[getIndex];
+        if(currentTile.includes('t_split')){
+            if(currentTile.includes('_0_')){
+                optionUp = false
+            }
+            if(currentTile.includes('_90_')){
+                optionLeft = false
+            }
+            if(currentTile.includes('_180_')){
+                optionDown = false
+            }
+            if(currentTile.includes('_270_')){
+                optionRight = false
+            }
+        }
+        if(currentTile.includes('turn')){
+            if(currentTile.includes('_0_')){
+                optionUp = false
+                optionLeft = false
+            }
+            if(currentTile.includes('_90_')){
+                optionLeft = false
+                optionDown = false
+            }
+            if(currentTile.includes('_180_')){
+                optionDown = false
+                optionRight = false
+            }
+            if(currentTile.includes('_270_')){
+                optionRight = false
+                optionUp = false
+            }
+        }
+        if(currentTile.includes('straight')){
+            if(currentTile.includes('_0_')){
+                optionUp = false
+                optionDown = false
+            }
+            if(currentTile.includes('_90_')){
+                optionLeft = false;
+                optionRight = false;
+            }
+        }
         if (this.stepX <= 64) {
             optionLeft = false;
-        } else {
-            optionLeft = true;
         }
         if (this.stepX >= 576) {
             optionRight = false;
-        } else {
-            optionRight = true;
         }
         if (this.stepY <= 64) {
             optionUp = false;
-        } else {
-            optionUp = true;
         }
         if (this.stepY >= 576) {
             optionDown = false;
-        } else {
-            optionDown = true;
         }
-        console.log(optionDown, optionUp, optionLeft, optionRight)
+        console.log(optionDown);
+        // console.log(optionDown, optionUp, optionLeft, optionRight)
         if (event.keyCode == 38) { //up
             if (optionUp == true) {
                 newPosY = this.stepY - 128
                 this.stepY = newPosY
-                console.log('up')
             }
         }
         if (event.keyCode == 40) { //down
             if (optionDown == true) {
                 newPosY = this.stepY + 128
                 this.stepY = newPosY
-                console.log('down')
             }
         }
         if (event.keyCode == 37) { //left
             if (optionLeft == true) {
                 newPosX = this.stepX - 128
                 this.stepX = newPosX
-                console.log('left')
             }
         }
         if (event.keyCode == 39) { //right
             if (optionRight == true) {
                 newPosX = this.stepX + 128
                 this.stepX = newPosX
-                console.log('right')
             }
         }
         this.busDirection.push(this.stepX);
         this.busDirection.push(this.stepY);
-        console.log(this.busDirection);
+        // console.log(this.busDirection);
+        this.canvas.writeLineToCanvas(lineBeginX, lineBeginY, newPosX, newPosY, 15)
     }
 
     //Method to move the bus
@@ -133,7 +173,8 @@ class Bus {
 
     //Draw bus to canvas
     public drawBus(): void {
-        this.canvas.writeImageToCanvas(this.imageSource, this.xPos - 20, this.yPos)
+        console.log(this.imageSource, this.xPos - 20, this.yPos)
+        this.canvas.writeImageToCanvas(this.imageSource, this.xPos, this.yPos)
     };
 
 }

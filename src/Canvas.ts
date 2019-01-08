@@ -119,4 +119,13 @@ class Canvas {
         this.ctx.fill();
         this.ctx.closePath()
     };
+
+    public writeLineToCanvas(sX: number, sY: number, eX: number, eY: number, width: number) {
+        this.ctx.beginPath()
+        this.ctx.moveTo(sX, sY);
+        this.ctx.lineTo(eX, eY);
+        this.ctx.lineWidth = 15;
+        this.ctx.strokeStyle = '#ffff00';
+        this.ctx.stroke();
+    }
 }

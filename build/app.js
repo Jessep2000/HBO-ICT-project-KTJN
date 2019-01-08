@@ -2,6 +2,7 @@ class Bus {
     constructor(canvas, imgSrc, xCoor, yCoor) {
         this.busDirection = [64, 64];
         this.stepCounter = 0;
+        this.preStepCounter = 0;
         this.stepX = 64;
         this.stepY = 64;
         this.vehicleColor = [
@@ -12,6 +13,7 @@ class Bus {
             "bus_red",
             "bus_yellow"
         ];
+        this.levelData = new LevelData();
         this.canvas = new Canvas(canvas);
         this.imageSource = imgSrc;
         this.xPos = xCoor;
@@ -21,66 +23,97 @@ class Bus {
     getBusDirction(event) {
         let newPosX = this.stepX;
         let newPosY = this.stepY;
-        let optionUp;
-        let optionDown;
-        let optionLeft;
-        let optionRight;
+        let lineBeginX = this.stepX;
+        let lineBeginY = this.stepY;
+        let optionUp = true;
+        let optionDown = true;
+        let optionLeft = true;
+        let optionRight = true;
+        let getIndex;
+        getIndex = (((this.stepY - 64) / 128) * 5) + ((this.stepX - 64) / 128);
+        let currentTile = this.levelData.level1_2[getIndex];
+        if (currentTile.includes('t_split')) {
+            if (currentTile.includes('_0_')) {
+                optionUp = false;
+            }
+            if (currentTile.includes('_90_')) {
+                optionLeft = false;
+            }
+            if (currentTile.includes('_180_')) {
+                optionDown = false;
+            }
+            if (currentTile.includes('_270_')) {
+                optionRight = false;
+            }
+        }
+        if (currentTile.includes('turn')) {
+            if (currentTile.includes('_0_')) {
+                optionUp = false;
+                optionLeft = false;
+            }
+            if (currentTile.includes('_90_')) {
+                optionLeft = false;
+                optionDown = false;
+            }
+            if (currentTile.includes('_180_')) {
+                optionDown = false;
+                optionRight = false;
+            }
+            if (currentTile.includes('_270_')) {
+                optionRight = false;
+                optionUp = false;
+            }
+        }
+        if (currentTile.includes('straight')) {
+            if (currentTile.includes('_0_')) {
+                optionUp = false;
+                optionDown = false;
+            }
+            if (currentTile.includes('_90_')) {
+                optionLeft = false;
+                optionRight = false;
+            }
+        }
         if (this.stepX <= 64) {
             optionLeft = false;
-        }
-        else {
-            optionLeft = true;
         }
         if (this.stepX >= 576) {
             optionRight = false;
         }
-        else {
-            optionRight = true;
-        }
         if (this.stepY <= 64) {
             optionUp = false;
-        }
-        else {
-            optionUp = true;
         }
         if (this.stepY >= 576) {
             optionDown = false;
         }
-        else {
-            optionDown = true;
-        }
-        console.log(optionDown, optionUp, optionLeft, optionRight);
+        console.log(optionDown);
         if (event.keyCode == 38) {
             if (optionUp == true) {
                 newPosY = this.stepY - 128;
                 this.stepY = newPosY;
-                console.log('up');
             }
         }
         if (event.keyCode == 40) {
             if (optionDown == true) {
                 newPosY = this.stepY + 128;
                 this.stepY = newPosY;
-                console.log('down');
             }
         }
         if (event.keyCode == 37) {
             if (optionLeft == true) {
                 newPosX = this.stepX - 128;
                 this.stepX = newPosX;
-                console.log('left');
             }
         }
         if (event.keyCode == 39) {
             if (optionRight == true) {
                 newPosX = this.stepX + 128;
                 this.stepX = newPosX;
-                console.log('right');
             }
         }
         this.busDirection.push(this.stepX);
         this.busDirection.push(this.stepY);
-        console.log(this.busDirection);
+        this.canvas.writeLineToCanvas(lineBeginX, lineBeginY, newPosX, newPosY, 15);
     }
     moveBus() {
         let YstepReady;
@@ -120,7 +153,8 @@ class Bus {
     }
     ;
     drawBus() {
-        this.canvas.writeImageToCanvas(this.imageSource, this.xPos - 20, this.yPos);
+        console.log(this.imageSource, this.xPos - 20, this.yPos);
+        this.canvas.writeImageToCanvas(this.imageSource, this.xPos, this.yPos);
     }
     ;
 }
@@ -180,6 +214,14 @@ class Canvas {
         this.ctx.closePath();
     }
     ;
+    writeLineToCanvas(sX, sY, eX, eY, width) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(sX, sY);
+        this.ctx.lineTo(eX, eY);
+        this.ctx.lineWidth = 15;
+        this.ctx.strokeStyle = '#ffff00';
+        this.ctx.stroke();
+    }
 }
 class Game {
     constructor() {
@@ -440,10 +482,15 @@ class GameScreen {
             console.error("Array 'levelInfo' isn't the right size. Check syntax when creating object 'level'!");
         }
         else {
+            this.level.writeLevel();
             window.addEventListener('keyup', (event) => {
                 this.player.getBusDirction(event);
             });
-            this.frameUpdater();
+            window.addEventListener('keyup', (event) => {
+                if (event.keyCode == 13) {
+                    this.frameUpdater();
+                }
+            });
         }
     }
     frameUpdater() {

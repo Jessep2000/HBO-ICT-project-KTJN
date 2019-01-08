@@ -24,10 +24,16 @@ class GameScreen {
         if (this.level.levelInfo.length !== (this.level.size * this.level.size)) {
             console.error("Array 'levelInfo' isn't the right size. Check syntax when creating object 'level'!");
         } else {
+            this.level.writeLevel();
             window.addEventListener('keyup', (event) => {
                 this.player.getBusDirction(event);
             })
-            this.frameUpdater();
+            window.addEventListener('keyup', (event) => {
+                if(event.keyCode == 13){
+                    this.frameUpdater();
+                }
+            })
+            // this.frameUpdater();
         }
     }
 

@@ -15,7 +15,7 @@ class Level
         });
     };
 
-    //FIXME: Find a way to start level in Game.ts
+    //FIXME: Find a way to start level in Game.ts 
 
     //Draw level to canvas
     public writeLevel(): void {
