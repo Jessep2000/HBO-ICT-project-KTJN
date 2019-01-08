@@ -1,7 +1,7 @@
 class Timer
 {
     public timeVar: any;
-    private totalSeconds: number;
+    protected totalSeconds: number;
 
     public constructor() {
         this.timeVar = setInterval(() => this.countTimer(), 1000);
