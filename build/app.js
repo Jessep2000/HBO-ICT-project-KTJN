@@ -118,15 +118,30 @@ class Canvas {
 class Game {
     constructor() {
         const canvasElement = document.getElementById("canvas");
+        this.canvas = new Canvas(canvasElement);
         this.menuScreen = new MenuScreen(canvasElement);
         this.gameScreen = new GameScreen(canvasElement);
         this.highscoreScreen = new HighscoreScreen();
-        this.canvas = new Canvas(canvasElement);
     }
     ;
     draw() {
-        this.canvas.clearCanvas();
         this.menuScreen.drawMenu();
+        let buttonX = 650;
+        let buttonY = 350;
+        let buttonW = 200;
+        let buttonH = 80;
+        this.canvas.canvas.addEventListener("click", (event) => {
+            if (event.x > buttonX &&
+                event.x < buttonX + buttonW &&
+                event.y > buttonY &&
+                event.y < buttonY + buttonH) {
+                this.canvas.clearCanvas();
+                buttonW = 0;
+                buttonH = 0;
+                console.log("start");
+                this.gameScreen.drawGame();
+            }
+        });
     }
     ;
 }
@@ -298,7 +313,7 @@ class GameScreen {
     constructor(canvasElem) {
         this.level = new Level(canvasElem);
         this.levelData = new LevelData;
-        this.player = new Bus(canvasElem, `./assets/images/vehicles/bus_yellow.png`, 64, 64);
+        this.player = new Bus(canvasElem, `../assets/images/vehicles/bus_yellow.png`, 64, 64);
     }
     ;
     init(size, lvlInfo) {
@@ -323,6 +338,7 @@ class GameScreen {
         this.init(5, this.levelData.level1_2);
         console.log("game init");
         new Timer();
+        console.log("level drawn");
     }
     ;
 }
@@ -337,6 +353,7 @@ class MenuScreen {
         this.canvas.writeTextToCanvas("DeliverRace", 70, 320, 100, "red");
         this.canvas.writeButtonToCanvas(175, 300, 300, 100, "limegreen");
         this.canvas.writeTextToCanvas("Play", 40, 325, 365, "black");
+        console.log("menu drawn");
     }
     ;
 }

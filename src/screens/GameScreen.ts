@@ -14,7 +14,7 @@ class GameScreen
 
         this.level = new Level(canvasElem);
         this.levelData = new LevelData;
-        this.player = new Bus(canvasElem, `./assets/images/vehicles/bus_yellow.png`, 64, 64);    //FIXME: Add the possibility to chose from different colors from 'Array' in class 'Bus'
+        this.player = new Bus(canvasElem, `../assets/images/vehicles/bus_yellow.png`, 64, 64);    //FIXME: Add the possibility to chose from different colors from 'Array' in class 'Bus'
     };
 
     //Init level
@@ -42,6 +42,8 @@ class GameScreen
         this.init(5, this.levelData.level1_2);
         console.log("game init");
 
+        //Start timer
         new Timer();
+        console.log("level drawn");
     };
 }
