@@ -86,7 +86,6 @@ class Bus {
         if (this.stepY >= 576) {
             optionDown = false;
         }
-        console.log(optionDown);
         if (event.keyCode == 38) {
             if (optionUp == true) {
                 newPosY = this.stepY - 128;
@@ -149,11 +148,15 @@ class Bus {
             YstepReady = false;
             YstepReady = false;
         }
+        if (this.stepX == 64 && this.stepY == 64) {
+            clearTimeout(Timer.prototype.timeVar);
+            alert("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(");
+            document.location.reload();
+        }
         this.drawBus();
     }
     ;
     drawBus() {
-        console.log(this.imageSource, this.xPos - 20, this.yPos);
         this.canvas.writeImageToCanvas(this.imageSource, this.xPos, this.yPos);
     }
     ;
@@ -229,7 +232,6 @@ class Game {
         this.canvas = new Canvas(canvasElement);
         this.menuScreen = new MenuScreen(canvasElement);
         this.gameScreen = new GameScreen(canvasElement);
-        this.highscoreScreen = new HighscoreScreen();
     }
     ;
     draw() {
@@ -246,7 +248,6 @@ class Game {
                 this.canvas.clearCanvas();
                 buttonW = 0;
                 buttonH = 0;
-                console.log("start");
                 this.gameScreen.drawGame();
             }
         });
@@ -278,6 +279,9 @@ class Timer {
         ;
     }
     ;
+    yourTime() {
+        return this.totalSeconds;
+    }
 }
 class Scores extends Timer {
     constructor() {
@@ -502,13 +506,9 @@ class GameScreen {
     ;
     drawGame() {
         this.init(5, this.levelData.level1_2);
-        console.log("game init");
         new Timer();
-        console.log("level drawn");
     }
     ;
-}
-class HighscoreScreen {
 }
 class MenuScreen {
     constructor(canvasElem) {
@@ -519,7 +519,7 @@ class MenuScreen {
         this.canvas.writeTextToCanvas("DeliverRace", 70, 320, 100, "red");
         this.canvas.writeButtonToCanvas(175, 300, 300, 100, "limegreen");
         this.canvas.writeTextToCanvas("Play", 40, 325, 365, "black");
-        console.log("menu drawn");
+        this.canvas.writeTextToCanvas("Versie: 0.6.0 Beta", 20, 80, 630, "black");
     }
     ;
 }

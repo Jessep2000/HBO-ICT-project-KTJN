@@ -16,7 +16,10 @@ class MenuScreen
         //draw "Play" text
         this.canvas.writeTextToCanvas("Play", 40, 325, 365, "black");
         
+        //draw version
+        this.canvas.writeTextToCanvas("Versie: 0.6.0 Beta", 20, 80, 630, "black")
+        
         //test console
-        console.log("menu drawn")
+        // console.log("menu drawn")
     };
 }

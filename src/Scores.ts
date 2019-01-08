@@ -1,6 +1,6 @@
 ///<reference path="./Timer.ts"/>
 
-class Scores  extends Timer {
+class Scores extends Timer {
     private totalScore: number;
     protected totalSeconds: number;
     protected oneStar: boolean;

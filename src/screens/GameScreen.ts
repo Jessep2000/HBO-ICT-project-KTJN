@@ -48,10 +48,10 @@ class GameScreen {
     //Draw level
     public drawGame(): void {
         this.init(5, this.levelData.level1_2);
-        console.log("game init");
+        // console.log("game init");
 
         //Start timer
         new Timer();
-        console.log("level drawn");
+        // console.log("level drawn");
     };
 }

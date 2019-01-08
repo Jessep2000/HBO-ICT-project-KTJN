@@ -101,7 +101,7 @@ class Bus {
         if (this.stepY >= 576) {
             optionDown = false;
         }
-        console.log(optionDown);
+        // console.log(optionDown);
         // console.log(optionDown, optionUp, optionLeft, optionRight)
         if (event.keyCode == 38) { //up
             if (optionUp == true) {
@@ -167,13 +167,20 @@ class Bus {
             YstepReady = false;
             YstepReady = false;
         }
+        
+        //Condition when game-over
+        if (this.stepX == 64 && this.stepY == 64) {
+            clearTimeout(Timer.prototype.timeVar);
+            alert("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(");
+            document.location.reload()
+        }
         this.drawBus();
         // })
     };
 
     //Draw bus to canvas
     public drawBus(): void {
-        console.log(this.imageSource, this.xPos - 20, this.yPos)
+        // console.log(this.imageSource, this.xPos - 20, this.yPos)
         this.canvas.writeImageToCanvas(this.imageSource, this.xPos, this.yPos)
     };
 

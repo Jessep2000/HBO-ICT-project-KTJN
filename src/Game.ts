@@ -4,7 +4,6 @@ class Game
     
     private menuScreen: MenuScreen;
     private gameScreen: GameScreen;
-    private highscoreScreen: HighscoreScreen;
 
 
     public constructor() {
@@ -13,7 +12,6 @@ class Game
 
         this.menuScreen = new MenuScreen(canvasElement);
         this.gameScreen = new GameScreen(canvasElement);
-        this.highscoreScreen = new HighscoreScreen();
 
     };
 
@@ -37,7 +35,7 @@ class Game
                 this.canvas.clearCanvas();
                 buttonW = 0;
                 buttonH = 0;
-                console.log("start");
+                // console.log("start");
                 this.gameScreen.drawGame()
             }
         });

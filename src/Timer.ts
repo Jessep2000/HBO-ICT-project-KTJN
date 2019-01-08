@@ -22,4 +22,8 @@ class Timer
             document.getElementById("timer").innerHTML = "totale speeltijd<br>" + minutes + " min" + " " + seconds + " sec";
         };
     };
+
+    public yourTime(): number {
+        return this.totalSeconds
+    }
 }
