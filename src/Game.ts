@@ -22,10 +22,10 @@ class Game
         this.menuScreen.drawMenu();
         
         //Add event handler
-        let buttonX: number = 650;
-        let buttonY: number = 350;
-        let buttonW: number = 200;
-        let buttonH: number = 80;
+        let buttonX: number = 630;
+        let buttonY: number = 330;
+        let buttonW: number = 300;
+        let buttonH: number = 100;
 
         this.canvas.canvas.addEventListener("click", (event) => {
             if (
