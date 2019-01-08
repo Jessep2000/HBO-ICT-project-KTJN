@@ -237,6 +237,56 @@ class Timer {
     }
     ;
 }
+class Scores extends Timer {
+    constructor() {
+        super();
+        this.starSpace = 0;
+        this.canvas = new Canvas(document.getElementById("canvas"));
+        this.oneStar = false;
+        this.twoStar = false;
+        this.threeStar = false;
+    }
+    getScore() {
+        if (this.totalSeconds <= 90) {
+            this.oneStar = false;
+            this.twoStar = false;
+            this.threeStar = true;
+        }
+        else if (this.totalSeconds > 90 && this.totalSeconds <= 180) {
+            this.oneStar = false;
+            this.twoStar = true;
+            this.threeStar = false;
+        }
+        else {
+            this.oneStar = true;
+            this.twoStar = false;
+            this.threeStar = false;
+        }
+    }
+    writeStar() {
+        console.log("writestar");
+        this.canvas.writeImageToCanvas("./assets/images/star2.png", 0 + this.starSpace, 0);
+    }
+    showPlayerScore() {
+        if (this.oneStar == true) {
+            for (let i = 0; i < 1; i++) {
+                this.writeStar();
+            }
+        }
+        else if (this.twoStar == true) {
+            for (let i = 0; i < 2; i++) {
+                this.writeStar();
+                this.starSpace += 130;
+            }
+        }
+        else if (this.threeStar == true) {
+            for (let i = 0; i < 3; i++) {
+                this.writeStar(),
+                    this.starSpace += 130;
+            }
+        }
+    }
+}
 class Level {
     constructor(canvasId) {
         this.anchorPointX = [];
