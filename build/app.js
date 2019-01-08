@@ -156,10 +156,10 @@ class Canvas {
         this.ctx.fillText(text, xPos, yPos);
     }
     ;
-    writeImageToCanvas(src, xPos, yPos, width, height) {
+    writeImageToCanvas(src, xPos, yPos) {
         let image = new Image();
         image.addEventListener("load", () => {
-            this.ctx.drawImage(image, xPos, yPos, width, height);
+            this.ctx.drawImage(image, xPos, yPos);
         });
         image.src = src;
     }
@@ -192,10 +192,10 @@ class Game {
     ;
     draw() {
         this.menuScreen.drawMenu();
-        let buttonX = 650;
-        let buttonY = 350;
-        let buttonW = 200;
-        let buttonH = 80;
+        let buttonX = 630;
+        let buttonY = 330;
+        let buttonW = 300;
+        let buttonH = 100;
         this.canvas.canvas.addEventListener("click", (event) => {
             if (event.x > buttonX &&
                 event.x < buttonX + buttonW &&

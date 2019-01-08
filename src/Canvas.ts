@@ -68,13 +68,11 @@ class Canvas {
         src: string,
         xPos: number,
         yPos: number,
-        width?: number,
-        height?: number
     ): void {
         let image = new Image();
 
         image.addEventListener("load", () => {
-            this.ctx.drawImage(image, xPos, yPos, width, height);
+            this.ctx.drawImage(image, xPos, yPos);
         });
 
         image.src = src;
