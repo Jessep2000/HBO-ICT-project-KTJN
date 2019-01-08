@@ -300,6 +300,7 @@ class GameScreen {
         this.levelData = new LevelData;
         this.player = new Bus(canvasElem, `./assets/images/vehicles/bus_yellow.png`, 64, 64);
     }
+    ;
     init(size, lvlInfo) {
         this.player.drawBus();
         this.level.levelInfo = lvlInfo;
@@ -321,6 +322,7 @@ class GameScreen {
     drawGame() {
         this.init(5, this.levelData.level1_2);
         console.log("game init");
+        new Timer();
     }
     ;
 }

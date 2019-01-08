@@ -7,13 +7,15 @@ class GameScreen
     private levelData: LevelData;
     private player: Bus;
 
+    private timer: Timer;
+
     
     public constructor(canvasElem: HTMLCanvasElement) {
 
         this.level = new Level(canvasElem);
         this.levelData = new LevelData;
         this.player = new Bus(canvasElem, `./assets/images/vehicles/bus_yellow.png`, 64, 64);    //FIXME: Add the possibility to chose from different colors from 'Array' in class 'Bus'
-    }
+    };
 
     //Init level
     public init(size: number, lvlInfo: Array<string>): void {
@@ -39,5 +41,7 @@ class GameScreen
     public drawGame(): void {
         this.init(5, this.levelData.level1_2);
         console.log("game init");
+
+        new Timer();
     };
 }
