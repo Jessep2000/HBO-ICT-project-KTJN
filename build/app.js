@@ -79,6 +79,10 @@ class Canvas {
             this.canvas.height / 2;
     }
     ;
+    clearCanvas() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    ;
     writeTextToCanvas(text, fontSize, xPos, yPos, color = "white", alignment = "center") {
         this.ctx.font = `${fontSize}px SSRS`;
         this.ctx.fillStyle = color;
@@ -86,10 +90,10 @@ class Canvas {
         this.ctx.fillText(text, xPos, yPos);
     }
     ;
-    writeImageToCanvas(src, xPos, yPos) {
+    writeImageToCanvas(src, xPos, yPos, width, height) {
         let image = new Image();
         image.addEventListener("load", () => {
-            this.ctx.drawImage(image, xPos, yPos);
+            this.ctx.drawImage(image, xPos, yPos, width, height);
         });
         image.src = src;
     }
@@ -100,6 +104,55 @@ class Canvas {
         image.addEventListener("load", () => {
             this.ctx.drawImage(image, xPos, yPos);
         });
+    }
+    ;
+    writeButtonToCanvas(xPos, yPos, width, height, color) {
+        this.ctx.beginPath();
+        this.ctx.rect(xPos, yPos, width, height);
+        this.ctx.fillStyle = color;
+        this.ctx.fill();
+        this.ctx.closePath();
+    }
+    ;
+}
+class Game {
+    constructor() {
+        const canvasElement = document.getElementById("canvas");
+        this.menuScreen = new MenuScreen(canvasElement);
+        this.gameScreen = new GameScreen(canvasElement);
+        this.highscoreScreen = new HighscoreScreen();
+        this.canvas = new Canvas(canvasElement);
+    }
+    ;
+    draw() {
+        this.canvas.clearCanvas();
+        this.menuScreen.drawMenu();
+    }
+    ;
+}
+let init = function () {
+    const DeliverRace = new Game();
+    DeliverRace.draw();
+};
+window.addEventListener("load", init);
+class Timer {
+    constructor() {
+        this.timeVar = setInterval(() => this.countTimer(), 1000);
+        this.totalSeconds = 0;
+    }
+    ;
+    countTimer() {
+        ++this.totalSeconds;
+        let hours = Math.floor(this.totalSeconds / 3600);
+        let minutes = Math.floor((this.totalSeconds - hours * 3600) / 60);
+        let seconds = this.totalSeconds - (hours * 3600 + minutes * 60);
+        if (this.totalSeconds <= seconds) {
+            document.getElementById("timer").innerHTML = "totale speeltijd<br>" + seconds + " sec";
+        }
+        else {
+            document.getElementById("timer").innerHTML = "totale speeltijd<br>" + minutes + " min" + " " + seconds + " sec";
+        }
+        ;
     }
     ;
 }
@@ -216,58 +269,6 @@ class Level {
     }
     ;
 }
-class Game {
-    constructor() {
-        const CanvasElement = document.getElementById("canvas");
-        this.level = new Level(CanvasElement);
-        this.levelData = new LevelData;
-        this.player = new Bus(CanvasElement, `./assets/images/vehicles/bus_yellow.png`, 64, 64);
-        this.timer = new Timer();
-    }
-    init(size, lvlInfo) {
-        this.player.drawBus();
-        this.level.levelInfo = lvlInfo;
-        this.level.size = size;
-        if (this.level.levelInfo.length !== (this.level.size * this.level.size)) {
-            console.error("Array 'levelInfo' isn't the right size. Check syntax when creating object 'level'!");
-        }
-        else {
-            this.frameUpdater();
-        }
-    }
-    frameUpdater() {
-        setInterval(() => {
-            this.level.writeLevel();
-            this.player.moveBus();
-        }, 10);
-    }
-    ;
-    draw() {
-        this.init(5, this.levelData.level1_2);
-        console.log("game init");
-        this.timer.timeVar;
-    }
-}
-let init = function () {
-    const DeliverRace = new Game();
-    DeliverRace.draw();
-};
-window.addEventListener("load", init);
-class Timer {
-    constructor() {
-        this.timeVar = setInterval(() => this.countTimer(), 1000);
-        this.totalSeconds = 0;
-    }
-    ;
-    countTimer() {
-        ++this.totalSeconds;
-        let hours = Math.floor(this.totalSeconds / 3600);
-        let minutes = Math.floor((this.totalSeconds - hours * 3600) / 60);
-        let seconds = this.totalSeconds - (hours * 3600 + minutes * 60);
-        document.getElementById("timer").innerHTML = "Time: " + minutes + ":" + seconds;
-    }
-    ;
-}
 class LevelData {
     constructor() {
         this.test = [
@@ -292,5 +293,49 @@ class LevelData {
             '1_90_turn', '2_0_straight', '1_180_t_split', '3_0_straight', '2_180_turn'
         ];
     }
+}
+class GameScreen {
+    constructor(canvasElem) {
+        this.level = new Level(canvasElem);
+        this.levelData = new LevelData;
+        this.player = new Bus(canvasElem, `./assets/images/vehicles/bus_yellow.png`, 64, 64);
+    }
+    init(size, lvlInfo) {
+        this.player.drawBus();
+        this.level.levelInfo = lvlInfo;
+        this.level.size = size;
+        if (this.level.levelInfo.length !== (this.level.size * this.level.size)) {
+            console.error("Array 'levelInfo' isn't the right size. Check syntax when creating object 'level'!");
+        }
+        else {
+            this.frameUpdater();
+        }
+    }
+    frameUpdater() {
+        setInterval(() => {
+            this.level.writeLevel();
+            this.player.moveBus();
+        }, 10);
+    }
+    ;
+    drawGame() {
+        this.init(5, this.levelData.level1_2);
+        console.log("game init");
+    }
+    ;
+}
+class HighscoreScreen {
+}
+class MenuScreen {
+    constructor(canvasElem) {
+        this.canvas = new Canvas(canvasElem);
+    }
+    ;
+    drawMenu() {
+        this.canvas.writeTextToCanvas("DeliverRace", 70, 320, 100, "red");
+        this.canvas.writeButtonToCanvas(175, 300, 300, 100, "limegreen");
+        this.canvas.writeTextToCanvas("Play", 40, 325, 365, "black");
+    }
+    ;
 }
 //# sourceMappingURL=app.js.map

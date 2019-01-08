@@ -14,7 +14,7 @@ body {
 
 .timer-box {
     flex: 1;
-    font-size: 50px;
+    font-size: 30px;
     font-family: "SSRS";
     padding: 10px;
 }
@@ -26,6 +26,9 @@ body {
 
 canvas {
     border: 2px solid black;
+    /*background-color: white;*/
+    background-image: url("../images/backgrounds/menu_background.png");
+    margin: 30px;
 }
 
 @font-face {

@@ -16,6 +16,10 @@ class Timer
         let minutes = Math.floor((this.totalSeconds - hours * 3600) / 60);
         let seconds = this.totalSeconds - (hours * 3600 + minutes * 60);
 
-        document.getElementById("timer").innerHTML = "Time: " + minutes + ":" + seconds;
+        if (this.totalSeconds <= seconds) {
+            document.getElementById("timer").innerHTML = "totale speeltijd<br>" + seconds + " sec";
+        } else {
+            document.getElementById("timer").innerHTML = "totale speeltijd<br>" + minutes + " min" + " " + seconds + " sec";
+        };
     };
 }
