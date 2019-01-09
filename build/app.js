@@ -148,10 +148,12 @@ class Bus {
             YstepReady = false;
             YstepReady = false;
         }
-        if (this.stepX == 64 && this.stepY == 64) {
-            clearTimeout(Timer.prototype.timeVar);
-            alert("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(");
-            document.location.reload();
+        if (this.xPos == 64 && this.yPos == 64) {
+            if (this.stepCounter != 2) {
+                clearTimeout(Timer.prototype.timeVar);
+                alert("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(");
+                document.location.reload();
+            }
         }
         this.drawBus();
     }
@@ -526,7 +528,7 @@ class MenuScreen {
         this.canvas.writeTextToCanvas("DeliverRace", 70, 320, 100, "red");
         this.canvas.writeButtonToCanvas(175, 300, 300, 100, "limegreen");
         this.canvas.writeTextToCanvas("Play", 40, 325, 365, "black");
-        this.canvas.writeTextToCanvas("Versie: 0.6.0 Beta", 20, 80, 630, "black");
+        this.canvas.writeTextToCanvas("Versie: 0.6.1a Beta", 20, 80, 630, "black");
     }
     ;
 }

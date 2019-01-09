@@ -47,44 +47,44 @@ class Bus {
         let getIndex: number;
         getIndex = (((this.stepY - 64) / 128) * 5) + ((this.stepX - 64) / 128)
         let currentTile: string = this.levelData.level1_3[getIndex];
-        if(currentTile.includes('t_split')){
-            if(currentTile.includes('_0_')){
+        if (currentTile.includes('t_split')) {
+            if (currentTile.includes('_0_')) {
                 optionUp = false
             }
-            if(currentTile.includes('_90_')){
+            if (currentTile.includes('_90_')) {
                 optionLeft = false
             }
-            if(currentTile.includes('_180_')){
+            if (currentTile.includes('_180_')) {
                 optionDown = false
             }
-            if(currentTile.includes('_270_')){
+            if (currentTile.includes('_270_')) {
                 optionRight = false
             }
         }
-        if(currentTile.includes('turn')){
-            if(currentTile.includes('_0_')){
+        if (currentTile.includes('turn')) {
+            if (currentTile.includes('_0_')) {
                 optionUp = false
                 optionLeft = false
             }
-            if(currentTile.includes('_90_')){
+            if (currentTile.includes('_90_')) {
                 optionLeft = false
                 optionDown = false
             }
-            if(currentTile.includes('_180_')){
+            if (currentTile.includes('_180_')) {
                 optionDown = false
                 optionRight = false
             }
-            if(currentTile.includes('_270_')){
+            if (currentTile.includes('_270_')) {
                 optionRight = false
                 optionUp = false
             }
         }
-        if(currentTile.includes('straight')){
-            if(currentTile.includes('_0_')){
+        if (currentTile.includes('straight')) {
+            if (currentTile.includes('_0_')) {
                 optionUp = false
                 optionDown = false
             }
-            if(currentTile.includes('_90_')){
+            if (currentTile.includes('_90_')) {
                 optionLeft = false;
                 optionRight = false;
             }
@@ -167,12 +167,14 @@ class Bus {
             YstepReady = false;
             YstepReady = false;
         }
-        
+
         //Condition when game-over
-        if (this.stepX == 64 && this.stepY == 64) {
-            clearTimeout(Timer.prototype.timeVar);
-            alert("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(");
-            document.location.reload()
+        if (this.xPos == 64 && this.yPos == 64) {
+            if (this.stepCounter != 2) {
+                clearTimeout(Timer.prototype.timeVar);
+                alert("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(");
+                document.location.reload()
+            }
         }
         this.drawBus();
         // })
