@@ -47,7 +47,7 @@ class GameScreen {
 
     //Draw level
     public drawGame(): void {
-        this.init(5, this.levelData.level1_2);
+        this.init(5, this.levelData.level1_3);
         // console.log("game init");
 
         //Start timer

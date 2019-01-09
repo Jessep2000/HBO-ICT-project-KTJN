@@ -46,7 +46,7 @@ class Bus {
         let optionRight: boolean = true;
         let getIndex: number;
         getIndex = (((this.stepY - 64) / 128) * 5) + ((this.stepX - 64) / 128)
-        let currentTile: string = this.levelData.level1_2[getIndex];
+        let currentTile: string = this.levelData.level1_3[getIndex];
         if(currentTile.includes('t_split')){
             if(currentTile.includes('_0_')){
                 optionUp = false
