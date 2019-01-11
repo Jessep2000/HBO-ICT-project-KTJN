@@ -114,7 +114,7 @@ class Bus {
         this.busDirection.push(this.stepY);
         this.canvas.writeLineToCanvas(lineBeginX, lineBeginY, newPosX, newPosY, 15);
     }
-    moveBus() {
+    moveBus(score) {
         let YstepReady;
         let XstepReady;
         let targetPosX = this.busDirection[this.stepCounter];
@@ -151,8 +151,7 @@ class Bus {
         if (this.xPos == 64 && this.yPos == 64) {
             if (this.stepCounter != 2) {
                 clearTimeout(Timer.prototype.timeVar);
-                alert("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(");
-                document.location.reload();
+                score.getScore();
             }
         }
         this.drawBus();
@@ -286,19 +285,20 @@ class Timer {
     }
 }
 class Scores extends Timer {
-    constructor() {
+    constructor(timer) {
         super();
         this.starSpace = 0;
+        this.timer = timer;
         this.canvas = new Canvas(document.getElementById("canvas"));
         this.oneStar = false;
         this.twoStar = false;
         this.threeStar = false;
+        this.totalSeconds = this.yourTime();
     }
     getScore() {
         if (this.totalSeconds <= 90) {
-            this.oneStar = false;
-            this.twoStar = false;
-            this.threeStar = true;
+            alert('onestar');
+            document.location.reload();
         }
         else if (this.totalSeconds > 90 && this.totalSeconds <= 180) {
             this.oneStar = false;
@@ -484,6 +484,7 @@ class GameScreen {
     constructor(canvasElem) {
         this.level = new Level(canvasElem);
         this.levelData = new LevelData;
+        this.canvasHelper = new Canvas(canvasElem);
         this.player = new Bus(canvasElem, `./assets/images/vehicles/bus_yellow.png`, 64, 64);
     }
     ;
@@ -495,29 +496,53 @@ class GameScreen {
             console.error("Array 'levelInfo' isn't the right size. Check syntax when creating object 'level'!");
         }
         else {
+            this.addResetButton();
             this.level.writeLevel();
             window.addEventListener('keyup', (event) => {
                 this.player.getBusDirction(event);
             });
             window.addEventListener('keyup', (event) => {
                 if (event.keyCode == 13) {
-                    this.frameUpdater();
+                    this.frameTimer = setInterval(() => this.frameUpdater(), 30);
                 }
             });
         }
     }
     frameUpdater() {
-        setInterval(() => {
-            this.level.writeLevel();
-            this.player.moveBus();
-        }, 10);
+        this.level.writeLevel();
+        this.player.moveBus(this.score);
     }
     ;
     drawGame() {
+        this.timer = new Timer();
+        this.score = new Scores(this.timer);
         this.init(5, this.levelData.level1_3);
-        new Timer();
     }
     ;
+    addResetButton() {
+        const buttonContainer = document.getElementById('buttons');
+        let resetButton = document.createElement('button');
+        resetButton.id = 'reset';
+        resetButton.innerText = 'begin opnieuw';
+        if (document.getElementById('reset') == null) {
+            buttonContainer.appendChild(resetButton);
+            resetButton.addEventListener('click', () => {
+                this.reset();
+            });
+        }
+        else {
+            resetButton.addEventListener('click', () => {
+                this.reset();
+            });
+        }
+    }
+    reset() {
+        this.canvasHelper.clearCanvas();
+        clearTimeout(this.frameTimer);
+        this.timer = null;
+        this.player.busDirection = [];
+        this.drawGame();
+    }
 }
 class MenuScreen {
     constructor(canvasElem) {

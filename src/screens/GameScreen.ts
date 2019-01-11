@@ -7,6 +7,7 @@ class GameScreen {
     private canvasHelper: Canvas;
     private player: Bus;
     private timer: Timer;
+    private score: Scores;
     public frameTimer: any;
 
 
@@ -44,17 +45,18 @@ class GameScreen {
     public frameUpdater(): void {
         // setInterval(() => {
             this.level.writeLevel();
-            this.player.moveBus();
+            this.player.moveBus(this.score);
         // }, 10);
     };
 
     //Draw level
     public drawGame(): void {
-        this.init(5, this.levelData.level1_3);
         // console.log("game init");
-
+        
         //Start timer
-        new Timer();
+        this.timer = new Timer();
+        this.score = new Scores(this.timer);
+        this.init(5, this.levelData.level1_3);
         // console.log("level drawn");
     };
 

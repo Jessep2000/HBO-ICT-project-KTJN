@@ -8,19 +8,20 @@ class Scores extends Timer {
     protected threeStar: boolean;
     private canvas: Canvas;
     private imageSource: string;
+    private timer: Timer
     public starSpace = 0
-   
 
 
-    public constructor() {
-         super()
-        
+
+    public constructor(timer: Timer) {
+        super()
+        this.timer = timer;
         this.canvas = new Canvas(<HTMLCanvasElement>document.getElementById("canvas"))
         this.oneStar = false
         this.twoStar = false
         this.threeStar = false
-        
-        
+        this.totalSeconds = this.yourTime();
+
 
     }
     /**
@@ -28,10 +29,9 @@ class Scores extends Timer {
      */
     public getScore(): void {
         if (this.totalSeconds <= 90) {
-            this.oneStar = false;
-            this.twoStar = false;
-            this.threeStar = true;
-            
+            alert('onestar');
+            document.location.reload();
+
         }
         else if (this.totalSeconds > 90 && this.totalSeconds <= 180) {
             this.oneStar = false;
@@ -46,7 +46,7 @@ class Scores extends Timer {
 
         }
 
-       
+
 
 
     }
@@ -60,10 +60,10 @@ class Scores extends Timer {
     /**
      * showPlayerScore
      */
-    public showPlayerScore() : void {
-     
+    public showPlayerScore(): void {
+
         if (this.oneStar == true) {
-            for (let i= 0; i < 1; i++) {
+            for (let i = 0; i < 1; i++) {
                 this.writeStar()
 
             }
@@ -74,17 +74,17 @@ class Scores extends Timer {
                 this.writeStar()
                 this.starSpace += 130
 
-                
+
             }
         }
         else if (this.threeStar == true) {
             for (let i = 0; i < 3; i++) {
                 this.writeStar(),
-               this.starSpace += 130          
+                    this.starSpace += 130
 
             }
         }
-        
+
 
     }
 

@@ -134,7 +134,7 @@ class Bus {
     }
 
     //Method to move the bus
-    public moveBus(): void {
+    public moveBus(score: Scores): void {
         // const startButton = document.getElementById('moveBusButton')
         // startButton.addEventListener('click', () => {
         let YstepReady: boolean;
@@ -173,10 +173,10 @@ class Bus {
             if (this.stepCounter != 2) {
                 clearTimeout(Timer.prototype.timeVar);
                 // alert("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(");
-                if (confirm("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(")) {
-                    document.location.reload()
-                }
-
+                // if (confirm("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(")) {
+                //     document.location.reload()
+                // }
+                score.getScore();
             }
         }
         this.drawBus();
