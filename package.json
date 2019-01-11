@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "git@github.com:Jessep2000/HBO-ICT-project-KTJN.git",
   "authors": "Jesse, Tijs, Kevin, Nick",
-  "license": "MIT",
+  "license": "None",
   "private": true,
   "scripts": {
     "build": "tsc",

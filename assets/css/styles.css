@@ -7,11 +7,33 @@ body {
     background-color: skyblue;
 }
 
+
+.container-screen {
+    display: flex;
+    justify-content: center; 
+}
+
+.timer-box {
+    flex: 1;
+    font-size: 30px;
+    font-family: "SSRS";
+    padding: 10px;
+}
+
+.canvas-box {
+    flex: auto;
+}
+
+.buttons {
+    flex: auto;
+    background-color: #ff00ff
+}
+
 canvas {
     border: 2px solid black;
-    position: absolute;
-    left: 27%;
-    height: 100vh;
+    /*background-color: white;*/
+    background-image: url("../images/backgrounds/menu_background.png");
+    margin: 30px;
 }
 
 @font-face {

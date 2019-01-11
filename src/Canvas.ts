@@ -1,5 +1,4 @@
-class Canvas
-{
+class Canvas {
     public readonly canvas: HTMLCanvasElement;
     public readonly ctx: CanvasRenderingContext2D;
 
@@ -25,9 +24,15 @@ class Canvas
     //Get center of canvas
     public GetCenter(): number {
         return this.canvas.width / 2,       //width
-                this.canvas.height / 2      //height
+            this.canvas.height / 2      //height
     };
 
+    //Clear canvas
+    public clearCanvas(): void {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    };
+
+    //-----------------------------------------------------------------------------------------------
     /**
      * writeTextToCanvas
      * @accessModifier {public}
@@ -62,14 +67,14 @@ class Canvas
     public writeImageToCanvas(
         src: string,
         xPos: number,
-        yPos: number
+        yPos: number,
     ): void {
         let image = new Image();
-        
+
         image.addEventListener("load", () => {
             this.ctx.drawImage(image, xPos, yPos);
         });
-        
+
         image.src = src;
     };
 
@@ -91,6 +96,36 @@ class Canvas
         image.addEventListener("load", () => {
             this.ctx.drawImage(image, xPos, yPos);
         });
-
     };
+
+    /**
+     * @accessModifier {public}
+     * @param {number} xPos -
+     * @param {number} yPos -
+     * @param {number} width -
+     * @param {number} height -
+     * @param {string} color -
+     */
+    public writeButtonToCanvas(
+        xPos: number,
+        yPos: number,
+        width: number,
+        height: number,
+        color: string
+    ): void {
+        this.ctx.beginPath();
+        this.ctx.rect(xPos, yPos, width, height);
+        this.ctx.fillStyle = color;
+        this.ctx.fill();
+        this.ctx.closePath()
+    };
+
+    public writeLineToCanvas(sX: number, sY: number, eX: number, eY: number, width: number) {
+        this.ctx.beginPath()
+        this.ctx.moveTo(sX, sY);
+        this.ctx.lineTo(eX, eY);
+        this.ctx.lineWidth = 15;
+        this.ctx.strokeStyle = '#ffff00';
+        this.ctx.stroke();
+    }
 }
