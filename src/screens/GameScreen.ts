@@ -7,6 +7,7 @@ class GameScreen {
     private canvasHelper: Canvas;
     private player: Bus;
     private timer: Timer;
+    public frameTimer: any;
 
 
     public constructor(canvasElem: HTMLCanvasElement) {
@@ -31,7 +32,8 @@ class GameScreen {
             })
             window.addEventListener('keyup', (event) => {
                 if (event.keyCode == 13) {
-                    this.frameUpdater();
+                    // this.frameUpdater();
+                    this.frameTimer = setInterval(() => this.frameUpdater(), 30);
                 }
             })
             // this.frameUpdater();
@@ -40,10 +42,10 @@ class GameScreen {
 
     //Update level
     public frameUpdater(): void {
-        setInterval(() => {
+        // setInterval(() => {
             this.level.writeLevel();
             this.player.moveBus();
-        }, 10);
+        // }, 10);
     };
 
     //Draw level
@@ -75,7 +77,9 @@ class GameScreen {
 
     public reset() {
         this.canvasHelper.clearCanvas();
+        clearTimeout(this.frameTimer);
+        this.timer = null;
         this.player.busDirection = [];
-        this.init(this.level.size, this.level.levelInfo)
+        this.drawGame();
     }
-}
+}   

@@ -1,5 +1,4 @@
-class LevelData
-{
+class LevelData {
     //Test level
     public test: Array<string> = [
         '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn', '1_90_turn',
@@ -26,7 +25,7 @@ class LevelData
         '2_90_t_split', '1_0_straight', '2_x_split', '1_0_straight', '2_270_t_split',
         '1_90_turn', '2_0_straight', '1_180_t_split', '3_0_straight', '2_180_turn'
     ];
-     //World 1, Level 3
+    //World 1, Level 3
     public level1_3: Array<string> = [
         '1_0_t_split', '2_0_t_split', '1_0_straight', '3_270_turn', 'grass',
         '1_90_t_split', '1_x_split', '3_0_t_split', '2_x_split', '1_90_deadend',
@@ -34,5 +33,5 @@ class LevelData
         '1_90_turn', '1_0_straight', '2_x_split', '1_0_straight', '2_270_t_split',
         'grass', '1_270_deadend', '1_180_t_split', '3_0_straight', '2_180_turn'
     ];
-    
+
 }

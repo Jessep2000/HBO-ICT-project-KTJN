@@ -1,5 +1,4 @@
-class Timer
-{
+class Timer {
     public timeVar: any;
     protected totalSeconds: number;
 
@@ -11,7 +10,7 @@ class Timer
     public countTimer(): void {
         ++this.totalSeconds;
 
-        
+
         let hours = Math.floor(this.totalSeconds / 3600);
         let minutes = Math.floor((this.totalSeconds - hours * 3600) / 60);
         let seconds = this.totalSeconds - (hours * 3600 + minutes * 60);
