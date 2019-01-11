@@ -172,8 +172,11 @@ class Bus {
         if (this.xPos == 64 && this.yPos == 64) {
             if (this.stepCounter != 2) {
                 clearTimeout(Timer.prototype.timeVar);
-                alert("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(");
-                document.location.reload()
+                // alert("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(");
+                if (confirm("✪ JE BENT EEN GEWELDIGE BEZORGER ✪ \n Je was zo snel dat we je score helaas niet konden berekenen :(")) {
+                    document.location.reload()
+                }
+
             }
         }
         this.drawBus();

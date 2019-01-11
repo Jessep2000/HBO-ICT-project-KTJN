@@ -10,6 +10,7 @@ body {
 
 .container-screen {
     display: flex;
+    justify-content: center; 
 }
 
 .timer-box {
@@ -23,6 +24,10 @@ body {
     flex: auto;
 }
 
+.buttons {
+    flex: auto;
+    background-color: #ff00ff
+}
 
 canvas {
     border: 2px solid black;
