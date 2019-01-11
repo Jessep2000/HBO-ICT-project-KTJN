@@ -28,21 +28,19 @@ class Scores extends Timer {
      *  
      */
     public getScore(): void {
-        if (this.totalSeconds <= 90) {
-            alert('onestar');
+        if (this.totalSeconds <= 60) {
+            alert('☆☆☆');
             document.location.reload();
 
         }
-        else if (this.totalSeconds > 90 && this.totalSeconds <= 180) {
-            this.oneStar = false;
-            this.twoStar = true;
-            this.threeStar = false;
+        else if (this.totalSeconds > 60 && this.totalSeconds <= 120) {
+            alert('☆☆');
+            document.location.reload();
 
         }
         else {
-            this.oneStar = true;
-            this.twoStar = false;
-            this.threeStar = false;
+            alert('☆');
+            document.location.reload();
 
         }
 
@@ -50,45 +48,4 @@ class Scores extends Timer {
 
 
     }
-    /**
-     * writeStar
-     */
-    public writeStar(): void {
-        console.log("writestar")
-        this.canvas.writeImageToCanvas("./assets/images/star2.png", 0 + this.starSpace, 0)
-    }
-    /**
-     * showPlayerScore
-     */
-    public showPlayerScore(): void {
-
-        if (this.oneStar == true) {
-            for (let i = 0; i < 1; i++) {
-                this.writeStar()
-
-            }
-
-        }
-        else if (this.twoStar == true) {
-            for (let i = 0; i < 2; i++) {
-                this.writeStar()
-                this.starSpace += 130
-
-
-            }
-        }
-        else if (this.threeStar == true) {
-            for (let i = 0; i < 3; i++) {
-                this.writeStar(),
-                    this.starSpace += 130
-
-            }
-        }
-
-
-    }
-
-
-
-
 }

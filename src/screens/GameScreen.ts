@@ -46,7 +46,7 @@ class GameScreen {
         // setInterval(() => {
             this.level.writeLevel();
             this.player.moveBus(this.score);
-        // }, 10);
+       
     };
 
     //Draw level
